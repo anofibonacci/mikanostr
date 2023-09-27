@@ -71,7 +71,7 @@ export default class Nostr {
 					posts.unshift(event)
 					this.reqProfile(event.pubkey)
 				}
-				// console.log(`there are posts: ${posts.length}`);
+				console.log(`there are posts: ${posts.length}`);
 				return posts
 			})
 		} else if (event.kind === 0) {
