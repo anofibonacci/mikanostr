@@ -1,3 +1,6 @@
+// #hacking Ananostr
+// this file will be replaced by ndk.ts
+
 import { nostrNotes, posts, profiles, relayEvents } from '$lib/store'
 import 'websocket-polyfill'
 import { RelayPool, Relay } from 'nostr'

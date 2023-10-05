@@ -9,12 +9,14 @@
 
 	TimeAgo.addDefaultLocale(en)
 
+	// remove this
 	onMount(async () => {
-		await $nostrPool.add('wss://5b82-157-245-32-159.eu.ngrok.io')
 		await $nostrPool.add('wss://nostr-pub.wellorder.net')
+		await $nostrPool.add('wss://relay.snort.social')
+		// these may not work:
+		await $nostrPool.add('wss://5b82-157-245-32-159.eu.ngrok.io')
 		await $nostrPool.add('wss://nostr1.tunnelsats.com')
 		await $nostrPool.add('wss://relay.nostr.info')
-		await $nostrPool.add('wss://relay.snort.social')
 
 		try {
 			const userRelays = await window.nostr?.getRelays()
@@ -34,11 +36,14 @@
 	let relayUrls
 	$: relayUrls = Object.keys($relayEvents).filter((url) => url.match(/\/\//))
 
+	// remove ability to update relays
+	/*
 	async function addNewRelay(e) {
 		const formData = new FormData(e.target)
 		$nostrPool.add(formData.get('newRelay'))
 		e.target.reset()
 	}
+	*/
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -63,7 +68,7 @@
 					{$relayEvents[relayUrl]} events
 				</li>
 			{/each}
-
+		<!--
 			<li>
 				<form on:submit|preventDefault={addNewRelay} class="mt-3 flex rounded-md shadow-sm">
 					<div class="relative flex flex-grow items-stretch focus-within:z-10">
@@ -102,6 +107,7 @@
 					</button>
 				</form>
 			</li>
+		-->
 		</ul>
 	</div>
 {/if}
