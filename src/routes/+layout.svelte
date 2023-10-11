@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { defaultRelays } from '$lib/relays';
+	import { defaultRelays } from '$lib/stores/relays';
 	import { NDKRelay } from '@nostr-dev-kit/ndk';
 	import TimeAgo from 'javascript-time-ago'
 	import en from 'javascript-time-ago/locale/en'

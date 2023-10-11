@@ -1,5 +1,5 @@
 <script>
-	import { profiles } from '$lib/store'
+	import { profiles } from '$lib/stores/store'
 	import Avatar from '$lib/components/Avatar.svelte'
 	import NoteContent from '$lib/components/NoteContent.svelte'
 	import TimeAgo from 'javascript-time-ago'

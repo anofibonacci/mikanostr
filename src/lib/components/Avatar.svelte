@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { NDKUser } from '@nostr-dev-kit/ndk';
-    import ndk from '$lib/ndk'
+    import ndk from '$lib/stores/ndk'
 
 	export let pubkey: string
 	export let klass: string = ''

@@ -1,5 +1,5 @@
 <script>
-	import { profiles } from '$lib/store'
+	import { profiles } from '$lib/stores/store'
 	import LodgingCard from './LodgingCard.svelte'
 	import TimeAgo from 'javascript-time-ago'
 	import { createEventDispatcher } from 'svelte'

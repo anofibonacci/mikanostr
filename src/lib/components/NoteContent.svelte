@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte'
 	import MarkdownIt from 'markdown-it'
 	import { tick } from 'svelte'
-	import { massageString } from '$lib/utils'
+	import { massageString } from '$lib/utils/helpers'
 
 	let md = new MarkdownIt()
 

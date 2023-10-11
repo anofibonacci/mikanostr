@@ -1,12 +1,12 @@
 <script lang="ts">
-    import ndk from '$lib/ndk';
+    import ndk from '$lib/stores/ndk';
     import type { NDKEvent } from '@nostr-dev-kit/ndk';
-    import { nostrNotes } from '$lib/store'
+    import { nostrNotes } from '$lib/stores/store'
     import Avatar from '$lib/components/Avatar.svelte'
     import CalendarIcon from '$lib/components/CalendarIcon.svelte'
     import NoteContent from '$lib/components/NoteContent.svelte'
-    import { formatSatoshis } from '$lib/utils'
-    import { massageString } from '$lib/utils'
+    import { formatSatoshis } from '$lib/utils/helpers'
+    import { massageString } from '$lib/utils/helpers'
     import { intlFormat } from 'date-fns'
 
     export let post: NDKEvent;

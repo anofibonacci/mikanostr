@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PostTypeSelector from './PostTypeSelector.svelte'
-	import { nostrNotes } from '$lib/store'
+	import { nostrNotes } from '$lib/stores/store'
 	import { onMount } from 'svelte'
 	import { validateEvent } from 'nostr-tools'
 	import { createEventDispatcher } from 'svelte'

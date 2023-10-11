@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { profiles } from '$lib/store.js'
+	import { profiles } from '$lib/stores/store'
 	import TimeAgo from 'javascript-time-ago'
 	import en from 'javascript-time-ago/locale/en'
 	import { onMount } from 'svelte'

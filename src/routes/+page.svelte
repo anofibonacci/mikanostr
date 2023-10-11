@@ -2,7 +2,7 @@
 	import NavBar from '$lib/components/NavBar.svelte'
 	import PostForm from '$lib/components/PostForm.svelte'
 	import PostSummary from '$lib/components/PostSummary.svelte'
-	import ndk from '$lib/ndk'
+	import ndk from '$lib/stores/ndk'
 
 	let showForm = false
 

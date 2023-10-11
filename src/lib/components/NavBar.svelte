@@ -1,7 +1,7 @@
 <script>
 	const title = 'MIKANOSTR'
 	import { get } from 'svelte/store'
-	import { introDismissed } from '$lib/store'
+	import { introDismissed } from '$lib/stores/store'
 	import { onMount } from 'svelte'
 
 	let mounted = false

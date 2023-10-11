@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ReplyForm from './ReplyForm.svelte'
-	import { nostrNotes, profiles } from '$lib/store'
+	import { nostrNotes, profiles } from '$lib/stores/store'
 	import HeadNote from './HeadNote.svelte'
 	import Note from './Note.svelte'
 
