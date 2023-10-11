@@ -1,50 +1,20 @@
 <script lang="ts">
-	import { relayEvents } from '$lib/store'
+	import { defaultRelays } from '$lib/relays';
+	import { NDKRelay } from '@nostr-dev-kit/ndk';
 	import TimeAgo from 'javascript-time-ago'
 	import en from 'javascript-time-ago/locale/en'
-	//import 'open-props/style'
-	//import 'open-props/normalize'
-	//import 'open-props/buttons'
-	import { onMount } from 'svelte'
 
 	TimeAgo.addDefaultLocale(en)
 
-	// remove this
-	/*
-	onMount(async () => {
-		await $nostrPool.add('wss://nostr-pub.wellorder.net')
-		await $nostrPool.add('wss://relay.snort.social')
-		// these may not work:
-		await $nostrPool.add('wss://5b82-157-245-32-159.eu.ngrok.io')
-		await $nostrPool.add('wss://nostr1.tunnelsats.com')
-		await $nostrPool.add('wss://relay.nostr.info')
-
-		try {
-			const userRelays = await window.nostr?.getRelays()
-			console.log('userRelays', userRelays, window.nostr)
-			if (userRelays) {
-				Object.keys(userRelays).forEach((relay) => $nostrPool.add(relay))
-			}
-		} catch (e) {
-			console.log('error getting relays', e)
-		}
-	})
-	*/
-
 	import '../app.css'
 
-	export let displayRelayInfo = false
-	export let relayUrls = undefined;
-	$: relayUrls = Object.keys($relayEvents).filter((url) => url.match(/\/\//))
+	let displayRelayInfo = false
 
-	// remove ability to update relays
-	/*
-	async function addNewRelay(e) {
-		const formData = new FormData(e.target)
-		$nostrPool.add(formData.get('newRelay'))
-		e.target.reset()
+	function getRelayInfo(relayUrl: string) {
+		const relay = new NDKRelay(relayUrl)
+		return relay.status;
 	}
-	*/
+
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -63,52 +33,20 @@
 		<div class="font-bold text-lg mb-3">Relays</div>
 
 		<ul class="list-none">
-			{#each relayUrls as relayUrl}
+			{#each defaultRelays as relayUrl}
 				<li>
-					<b>{relayUrl}:</b>
-					{$relayEvents[relayUrl]} events
+					<b>{relayUrl}</b>
+					{#await getRelayInfo(relayUrl)}
+						<span class="text-gray-400"> (loading...)</span>
+					{:then info}
+						<span class="text-gray-400">
+							(status: {info})
+						</span>
+					{:catch error}
+						<span class="text-red-400"> (error)</span>
+					{/await}
 				</li>
 			{/each}
-		<!--
-			<li>
-				<form on:submit|preventDefault={addNewRelay} class="mt-3 flex rounded-md shadow-sm">
-					<div class="relative flex flex-grow items-stretch focus-within:z-10">
-						<div
-							class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
-						>
-							<svg
-								class="h-5 w-5 text-gray-400"
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								stroke-width="1.5"
-								stroke="currentColor"
-								fill="none"
-								aria-hidden="true"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M12 4.5v15m7.5-7.5h-15"
-								/>
-							</svg>
-						</div>
-						<input
-							type="newRelay"
-							name="newRelay"
-							id="newRelay"
-							class="block w-full rounded-none rounded-l-md border-gray-300 pl-10 text-gray-700 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-							placeholder="wss://..."
-						/>
-					</div>
-					<button
-						type="submit"
-						class="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-purple-700 bg-purple-700 px-4 py-2 text-sm font-medium text-white hover:bg-purple-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-					>
-						<span>Add</span>
-					</button>
-				</form>
-			</li>
-		-->
 		</ul>
 	</div>
 {/if}

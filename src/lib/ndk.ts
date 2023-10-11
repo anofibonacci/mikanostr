@@ -1,17 +1,12 @@
 import { browser } from '$app/environment';
 import NDK from '@nostr-dev-kit/ndk';
-//import NDKSvelte from '@nostr-dev-kit/ndk-svelte';
 import { writable } from 'svelte/store';
 
+import { defaultRelays } from '$lib/relays';
+//console.log('defaultRelays', defaultRelays);
+
 const _ndk = new NDK({
-    explicitRelayUrls: [
-        'wss://purplepag.es',
-        //'wss://5b82-157-245-32-159.eu.ngrok.io',
-        'wss://nostr-pub.wellorder.net',
-        //'wss://nostr1.tunnelsats.com',
-        //'wss://relay.nostr.info',
-        'wss://relay.snort.social'
-    ],
+    explicitRelayUrls: defaultRelays,
     debug: false
 });
 if (browser) {

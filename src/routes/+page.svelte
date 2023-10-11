@@ -1,22 +1,8 @@
 <script lang="ts">
-	//import { nostrNotes, posts, profiles } from '$lib/store'
-	//import Avatar from '$lib/components/Avatar.svelte'
 	import NavBar from '$lib/components/NavBar.svelte'
-	//import CalendarIcon from '$lib/components/CalendarIcon.svelte'
 	import PostForm from '$lib/components/PostForm.svelte'
-	//import NoteContent from '$lib/components/NoteContent.svelte'
 	import PostSummary from '$lib/components/PostSummary.svelte'
-	//import { formatSatoshis } from '$lib/utils'
-	//import { massageString } from '$lib/utils'
 	import ndk from '$lib/ndk'
-	import type { NDKEvent } from '@nostr-dev-kit/ndk';
-
-	import { onMount } from 'svelte'
-	import { goto } from '$app/navigation'
-	//import { nostrPool } from '$lib/store'
-	//import { intlFormat } from 'date-fns'
-
-	let events: NDKEvent[] = [];
 
 	let showForm = false
 
@@ -28,14 +14,8 @@
 		kinds: [120 as number]
 	});
 
-	// sort array NDKEvent[] by created_at
-	events.sort((a, b) => {
-		if (a.created_at && b.created_at) {
-			return b.created_at - a.created_at;
-		} else {
-			return 0;
-		}
-	});
+	// still to implement:
+	// sort array eventsPromise by created_at
 
 	function posted(event) {
 		const eventId = event.detail
@@ -70,6 +50,7 @@
 		-->
 			<PostSummary {post} />
 		</div>
+		<!--p><a href="/e/${post.id}">click</a></p-->
 		{/each}
 	{/await}
 </div>
