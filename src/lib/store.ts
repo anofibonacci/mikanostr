@@ -1,10 +1,12 @@
 import { writable } from 'svelte/store'
-import Nostr from '$lib/Nostr'
+//import Nostr from '$lib/Nostr'
+import ndk from '$lib/ndk'
+import NDK from '@nostr-dev-kit/ndk';
 import { persisted } from 'svelte-local-storage-store'
 
 export const introDismissed = persisted('introDismissed', false)
 // this can go away after we remove logic for adding relays
-export const nostrPool = writable(new Nostr())
+// export const nostrPool = writable(new Nostr())
 
 // these also may be removed
 export const nostrNotes = writable({ responses: {} })

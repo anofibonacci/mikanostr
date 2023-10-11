@@ -1,55 +1,22 @@
-<script>
-	import { profiles } from '$lib/store'
-
-	export let pubkey
-	export let klass
-
-	let picture
-
-	$: picture = $profiles[pubkey]?.picture || `https://robohash.org/${pubkey}.png?set=set3&bgset=bg1`
-</script>
-
-<img class="{klass} ring-4 ring-white rounded-full" src={picture} alt="" />
-
-<!--
-// REMOVE everything above this line and replace with the following:
 <script lang="ts">
-    import ndk from '$lib/ndk';
-    import type { NDKUser } from '@nostr-dev-kit/ndk';
-    import {Avatar} from '@nostr-dev-kit/ndk-svelte-components';
+	import type { NDKUser } from '@nostr-dev-kit/ndk';
+    import ndk from '$lib/ndk'
 
-    export let pubkey: string | undefined = undefined;
-    export let user: NDKUser | undefined = undefined;
-    export let klass: string = $$props.class??'';
-    export let size: 'small' | 'large' | undefined = undefined;
-    export let type: 'square' | 'circle' = 'circle';
+	export let pubkey: string
+	export let klass: string = ''
+	let author: NDKUser = $ndk.getUser({ hexpubkey: pubkey });
+    //console.log("author: ", author);
 
-    let sizeClass = '';
-    let shapeClass = '';
-
-    switch (size) {
-        case 'small':
-            sizeClass = 'w-8 h-8';
-            break;
-    }
-
-    switch (type) {
-        case 'circle':
-            shapeClass = 'rounded-full';
-            break;
-        case 'square':
-            shapeClass = 'rounded-md';
-            break;
-    }
+	let robo = `https://robohash.org/${pubkey}.png?set=set3&bgset=bg1`
 </script>
 
-<Avatar
-    ndk={$ndk}
-    {pubkey}
-    {user}
-    class="{shapeClass} {sizeClass} {$$props.class??klass}"
-/>
 
-// $profiles[pubkey]?.picture || `https://robohash.org/${pubkey}.png?set=set3&bgset=bg1`
-
--->
+{#await author.fetchProfile() then eventSet}
+    {#if author.profile?.image}
+        <img class="{klass} ring-4 ring-white rounded-full" src={author.profile.image} alt="" />
+    {:else if pubkey != ''}
+        <img class="{klass} ring-4 ring-white rounded-full" src={robo} alt="" />
+    {:else}
+        <p>X</p>
+    {/if}
+{/await}

@@ -1,5 +1,5 @@
-<script>
-	import { nostrPool, profiles } from '$lib/store.js'
+<script lang="ts">
+	import { profiles } from '$lib/store.js'
 	import TimeAgo from 'javascript-time-ago'
 	import en from 'javascript-time-ago/locale/en'
 	import { onMount } from 'svelte'
@@ -9,18 +9,19 @@
 	const dispatch = createEventDispatcher()
 
 	TimeAgo.addDefaultLocale(en)
-
 	const timeAgo = new TimeAgo('en-US')
+
 	let ownPubkey
+	let parentId
 
-	export let parentId
-
+	/*
 	onMount(async () => {
 		ownPubkey = await $nostrPool.fetchOwnProfile()
 		if (!ownPubkey) {
 			alert('No profile found. Please create one first.')
 		}
 	})
+	*/
 
 	async function submit(e) {
 		e.preventDefault()
@@ -34,7 +35,7 @@
 			pubkey: ownPubkey
 		}
 
-		await $nostrPool.signAndPublishEvent(event)
+		// await $.signAndPublishEvent(event)
 
 		// dispatch('submit', formData);
 	}

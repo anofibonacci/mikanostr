@@ -36,6 +36,7 @@ declare module '$env/static/private' {
 	export const npm_package_devDependencies_typescript: string;
 	export const npm_package_dependencies__fontsource_manrope: string;
 	export const npm_package_dependencies_moment: string;
+	export const npm_package_dependencies_source_map: string;
 	export const INIT_CWD: string;
 	export const TERM: string;
 	export const SHELL: string;
@@ -160,6 +161,7 @@ declare module '$env/dynamic/private' {
 		npm_package_devDependencies_typescript: string;
 		npm_package_dependencies__fontsource_manrope: string;
 		npm_package_dependencies_moment: string;
+		npm_package_dependencies_source_map: string;
 		INIT_CWD: string;
 		TERM: string;
 		SHELL: string;

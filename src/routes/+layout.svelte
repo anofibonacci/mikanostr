@@ -1,5 +1,5 @@
-<script>
-	import { nostrPool, relayEvents } from '$lib/store'
+<script lang="ts">
+	import { relayEvents } from '$lib/store'
 	import TimeAgo from 'javascript-time-ago'
 	import en from 'javascript-time-ago/locale/en'
 	//import 'open-props/style'
@@ -10,6 +10,7 @@
 	TimeAgo.addDefaultLocale(en)
 
 	// remove this
+	/*
 	onMount(async () => {
 		await $nostrPool.add('wss://nostr-pub.wellorder.net')
 		await $nostrPool.add('wss://relay.snort.social')
@@ -28,12 +29,12 @@
 			console.log('error getting relays', e)
 		}
 	})
+	*/
 
 	import '../app.css'
 
-	let displayRelayInfo = false
-
-	let relayUrls
+	export let displayRelayInfo = false
+	export let relayUrls = undefined;
 	$: relayUrls = Object.keys($relayEvents).filter((url) => url.match(/\/\//))
 
 	// remove ability to update relays

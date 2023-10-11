@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
 	import PostTypeSelector from './PostTypeSelector.svelte'
-	import { nostrPool, nostrNotes } from '$lib/store'
+	import { nostrNotes } from '$lib/store'
 	import { onMount } from 'svelte'
 	import { validateEvent } from 'nostr-tools'
 	import { createEventDispatcher } from 'svelte'
@@ -10,6 +10,7 @@
 	let ownPubkey = 'loading'
 	let publishEventId
 
+	/*
 	onMount(async () => {
 		try {
 			ownPubkey = await $nostrPool.fetchOwnProfile()
@@ -17,6 +18,7 @@
 			ownPubkey = null
 		}
 	})
+	*/
 
 	function validate(data) {
 		const validTypes = ['lodging', 'airport', 'coffee', 'surfing', 'climbing', 'psa']
@@ -33,11 +35,13 @@
 		const formData = new FormData(e.target)
 		const data = {}
 
+		/*
 		ownPubkey = await $nostrPool.fetchOwnProfile()
 		if (!ownPubkey) {
 			alert('No nostr pubkey?')
 			return
 		}
+		*/
 
 		for (let field of formData) {
 			const [key, value] = field
@@ -58,12 +62,14 @@
 			pubkey: ownPubkey
 		}
 
+		/*
 		let { publishEvent } = await $nostrPool.signAndPublishEvent(event)
 		publishEventId = publishEvent.id
+		*/
 	}
 
 	// hack? what hack?
-	$: publishEventId && $nostrNotes[publishEventId] && dispatch('post', publishEventId)
+	//$: publishEventId && $nostrNotes[publishEventId] && dispatch('post', publishEventId)
 </script>
 
 <div class="my-4 w-full">

@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
 	import ReplyForm from './ReplyForm.svelte'
-	import { nostrPool, nostrNotes, profiles } from '$lib/store'
+	import { nostrNotes, profiles } from '$lib/store'
 	import HeadNote from './HeadNote.svelte'
 	import Note from './Note.svelte'
 
@@ -9,13 +9,14 @@
 	import Avatar from '$lib/components/Avatar.svelte'
 	import { page } from '$app/stores'
 
-	let noteId = $page.params.id
+	export let noteId = $page.params.id
+	export let showReplyForm = false
 
-	let showReplyForm = false
-
+	/*
 	onMount(async () => {
 		$nostrPool.reqEvent(noteId)
 	})
+	*/
 
 	function submit({ detail: formData }) {
 		let data = {}
@@ -66,5 +67,6 @@
 		{/if}
 	</main>
 {:else}
-	Loading {noteId}
+	<h2>Yo Man</h2>
+	<!--Loading {noteId}-->
 {/if}
