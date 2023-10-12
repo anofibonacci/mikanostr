@@ -1,4 +1,6 @@
 <script lang="ts">
+	import ndk from '$lib/stores/ndk'
+	import type { NDKEvent } from '@nostr-dev-kit/ndk'
 	import ReplyForm from './ReplyForm.svelte'
 	import { nostrNotes, profiles } from '$lib/stores/store'
 	import HeadNote from './HeadNote.svelte'
@@ -10,13 +12,20 @@
 	import { page } from '$app/stores'
 
 	export let noteId = $page.params.id
+	let myNote: NDKEvent
+	let myContent: any
 	export let showReplyForm = false
 
-	/*
 	onMount(async () => {
-		$nostrPool.reqEvent(noteId)
+		let notePromise = await $ndk.fetchEvent(noteId)
+		console.log('note (in): ', notePromise)
+		try {
+			myContent = JSON.parse(notePromise.content)
+		} catch (e) {
+			/* empty */
+		}
+		console.log('note content (in): ', myContent)
 	})
-	*/
 
 	function submit({ detail: formData }) {
 		let data = {}
@@ -67,6 +76,5 @@
 		{/if}
 	</main>
 {:else}
-	<h2>Yo Man</h2>
-	<!--Loading {noteId}-->
+	<p>Loading {noteId}</p>
 {/if}

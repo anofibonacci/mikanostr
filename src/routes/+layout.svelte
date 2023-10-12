@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { defaultRelays } from '$lib/stores/relays';
-	import { NDKRelay } from '@nostr-dev-kit/ndk';
+	import { defaultRelays } from '$lib/stores/relays'
+	import { NDKRelay } from '@nostr-dev-kit/ndk'
 	import TimeAgo from 'javascript-time-ago'
 	import en from 'javascript-time-ago/locale/en'
 
@@ -12,9 +12,8 @@
 
 	function getRelayInfo(relayUrl: string) {
 		const relay = new NDKRelay(relayUrl)
-		return relay.status;
+		return relay.status
 	}
-
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

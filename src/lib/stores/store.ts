@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store'
 //import Nostr from '$lib/Nostr'
 import ndk from '$lib/stores/ndk'
-import NDK from '@nostr-dev-kit/ndk';
+import NDK from '@nostr-dev-kit/ndk'
 import { persisted } from 'svelte-local-storage-store'
 
 export const introDismissed = persisted('introDismissed', false)

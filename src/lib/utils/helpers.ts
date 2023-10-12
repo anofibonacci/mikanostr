@@ -1,27 +1,27 @@
-import type { NDKUser } from '@nostr-dev-kit/ndk';
+import type { NDKUser } from '@nostr-dev-kit/ndk'
 
 export function dateTomorrow() {
-    return new Date(Date.now() + 3600 * 1000 * 24);
+	return new Date(Date.now() + 3600 * 1000 * 24)
 }
 
 export function truncatedBech(bech32: string, length?: number): string {
-	return `${bech32.substring(0, length || 9)}...`;
+	return `${bech32.substring(0, length || 9)}...`
 }
 
 export async function copyToClipboard(textToCopy: string) {
 	try {
-		await navigator.clipboard.writeText(textToCopy);
+		await navigator.clipboard.writeText(textToCopy)
 	} catch (err) {
-		console.error('Failed to copy: ', err);
+		console.error('Failed to copy: ', err)
 	}
 }
 
 export function truncatedNpub(user: NDKUser): string {
-	return user.npub ? truncatedBech(user.npub) : '';
+	return user.npub ? truncatedBech(user.npub) : ''
 }
 
 export function displayableName(user: NDKUser): string {
-	return user.profile?.name || user.profile?.displayName || truncatedNpub(user);
+	return user.profile?.name || user.profile?.displayName || truncatedNpub(user)
 }
 
 export function formatSatoshis(sats, { tryThousands } = {}) {

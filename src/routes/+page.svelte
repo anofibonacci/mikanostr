@@ -3,6 +3,7 @@
 	import PostForm from '$lib/components/PostForm.svelte'
 	import PostSummary from '$lib/components/PostSummary.svelte'
 	import ndk from '$lib/stores/ndk'
+	import { goto } from '$app/navigation'
 
 	let showForm = false
 
@@ -12,7 +13,7 @@
 
 	const eventsPromise = $ndk.fetchEvents({
 		kinds: [120 as number]
-	});
+	})
 
 	// still to implement:
 	// sort array eventsPromise by created_at
@@ -41,16 +42,14 @@
 <div class="my-4 w-full rounded">
 	{#await eventsPromise then events}
 		{#each Array.from(events) as post}
-		<div
-			class="flex flex-row py-5 bg-white w-full hover:bg-purple-50 cursor-pointer md:mb-4 md:rounded md:shadow border-b-gray-300 border-b max-h-24"
-		>
-		<!--
-			on:click={goto(`/e/${post.id}`)}
-			on:keypress={() => {}}
-		-->
-			<PostSummary {post} />
-		</div>
-		<!--p><a href="/e/${post.id}">click</a></p-->
+			<div
+				class="flex flex-row py-5 bg-white w-full md:mb-4 md:rounded md:shadow border-b-gray-300 border-b max-h-24"
+				on:click={() => goto(`/e/${post.id}`)}
+				on:keypress={() => {}}
+			>
+				<PostSummary {post} />
+			</div>
+			<!--p><a href="/e/${post.id}">click</a></p-->
 		{/each}
 	{/await}
 </div>

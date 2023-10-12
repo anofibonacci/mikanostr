@@ -32,8 +32,7 @@
 			src="/images/tangerine-svgrepo-com.svg"
 			alt="tangerine is mikan in japanese"
 			class="w-8 h-8"
-		/>
-		{title}
+		/>&nbsp;{title}
 		<button class="hidden md:block ml-3 text-black text-sm font-mono" on:click={toggleIntro}>
 			What's this?
 		</button>
@@ -54,14 +53,14 @@
 				<h1 class="font-bold text-lg mb-3">Nostr-powered classifieds, now with NDK</h1>
 
 				<p class="mb-4">
-					Ananostr was built by Pablo as a Craigslist alternative, specifically 
-					for matching nostriches attending <b>NOSTRICA 2023</b>. 
-					Mikanostr extends this for <b>NOSTRASIA 2023</b>.
+					Ananostr was built by Pablo as a Craigslist alternative, specifically for
+					matching nostriches attending <b>NOSTRICA 2023</b>. Mikanostr extends this for
+					<b>NOSTRASIA 2023</b>.
 				</p>
 
 				<p class="mb-4">
-					If you're attending 🇯🇵 (or 🇭🇰) and want to share a hotel room, a ride from/to the hotel,
-					or anything else, post it here and find another nostrich.
+					If you're attending 🇯🇵 (or 🇭🇰) and want to share a hotel room, a ride from/to
+					the hotel, or anything else, post it here and find another nostrich.
 				</p>
 
 				<p class="font-bold text-xl">🧡💜 Pura Vida! 🤙🏼</p>

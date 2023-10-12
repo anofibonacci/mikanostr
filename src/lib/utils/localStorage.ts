@@ -1,19 +1,19 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/environment'
 
-type list = 'pubkey' | 'locale' | 'theme' | 'emojis';
+type list = 'pubkey' | 'locale' | 'theme' | 'emojis'
 
 export const setLocalStorage = (type: list, value: string) => {
-	if (!browser) return;
+	if (!browser) return
 
-	localStorage.setItem(type, value);
-};
+	localStorage.setItem(type, value)
+}
 export const getLocalStorage = (type: list) => {
-	if (!browser) return;
+	if (!browser) return
 
-	return localStorage.getItem(type);
-};
+	return localStorage.getItem(type)
+}
 export const removeLocalStorage = (type: list) => {
-	if (!browser) return;
+	if (!browser) return
 
-	return localStorage.removeItem(type);
-};
+	return localStorage.removeItem(type)
+}
