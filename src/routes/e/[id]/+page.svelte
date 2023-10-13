@@ -17,12 +17,12 @@
 	export let showReplyForm = false
 
 	onMount(async () => {
-		let notePromise = await $ndk.fetchEvent(noteId)
-		console.log('note (in): ', notePromise)
+		myNote = await $ndk.fetchEvent(noteId)
+		console.log('note (in): ', myNote)
 		try {
-			myContent = JSON.parse(notePromise.content)
+			myContent = JSON.parse(myNote.content)
 		} catch (e) {
-			/* empty */
+			// empty 
 		}
 		console.log('note content (in): ', myContent)
 	})
@@ -46,33 +46,18 @@
 
 <NavBar />
 
-{#if $nostrNotes[noteId]}
+{#if noteId}
 	<main class="w-full">
 		<div class="w-full">
-			{#if $nostrNotes[noteId]}
+			{#if myNote}
 				<div>
-					<HeadNote note={$nostrNotes[noteId]} on:interested={toggleReplyForm} />
+					<HeadNote note={myNote} on:interested={toggleReplyForm} />
 				</div>
 			{/if}
 		</div>
 
 		{#if showReplyForm}
 			<ReplyForm on:submit={submit} parentId={noteId} />
-		{/if}
-
-		<h1 class="text-purple-700">
-			Comments
-			<span>
-				{#if $nostrNotes.responses[noteId]}
-					({$nostrNotes.responses[noteId].length})
-				{/if}
-			</span>
-		</h1>
-
-		{#if $nostrNotes.responses[noteId]}
-			{#each $nostrNotes.responses[noteId] as responseId}
-				<Note note={$nostrNotes[responseId]} />
-			{/each}
 		{/if}
 	</main>
 {:else}

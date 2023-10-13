@@ -1,9 +1,12 @@
 <script lang="ts">
+	//import { onMount } from 'svelte';
 	import NavBar from '$lib/components/NavBar.svelte'
 	import PostForm from '$lib/components/PostForm.svelte'
 	import PostSummary from '$lib/components/PostSummary.svelte'
 	import ndk from '$lib/stores/ndk'
+	//import { nostrNotes, posts } from '$lib/stores/store'
 	import { goto } from '$app/navigation'
+	//import { processEvent} from '$lib/nostr'
 
 	let showForm = false
 
@@ -17,6 +20,31 @@
 
 	// still to implement:
 	// sort array eventsPromise by created_at
+
+	//async function processEvent(event: NDKEvent) {
+		//try { event.content = JSON.parse(event.content); } catch (e) { /* empty */ }
+		/*
+		if (event.kind === 2) {
+			console.log(`got post ${event.id}`);
+		} else if (event.kind === 120) {
+			console.log(`it's a 120 post ${event.id}`);
+			posts.update((posts) => {
+				if (!posts.find((p) => p.id === event.id)) {
+					posts.unshift(event)
+					//this.reqProfile(event.pubkey);
+				}
+				console.log(`there are posts: ${posts.length}`);
+				//if (posts.length > 17) { console.log(`posts: ${posts}`);}
+				return posts;
+			})
+		}
+		nostrNotes.update((notes) => {
+			notes[event.id] = event;
+			console.log(`there are notes: ${Object.values(notes).length}`);
+			if (Object.values(notes).length > 17) { console.log(`notes: ${notes}`);}
+			return notes;
+		});
+	}*/
 
 	function posted(event) {
 		const eventId = event.detail
@@ -42,6 +70,7 @@
 <div class="my-4 w-full rounded">
 	{#await eventsPromise then events}
 		{#each Array.from(events) as post}
+			<!--{processEvent(post)}-->
 			<div
 				class="flex flex-row py-5 bg-white w-full md:mb-4 md:rounded md:shadow border-b-gray-300 border-b max-h-24"
 				on:click={() => goto(`/e/${post.id}`)}
