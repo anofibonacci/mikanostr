@@ -18,6 +18,21 @@
 		kinds: [120 as number]
 	})
 
+	// attempted to draw events from subscription instead...
+	/*
+	let events = [];
+	const eventsSub = $ndk.subscribe({ kinds: [120] });
+		eventsSub.on('event', (event) => {
+			console.log(...events, event);
+		});
+		eventsSub.on('eose', () => {
+			console.log('EOSE');
+		});
+		eventsSub.on('notice', (notice) => {
+			console.log(notice);
+		});
+	*/
+
 	// still to implement:
 	// sort array eventsPromise by created_at
 
@@ -70,7 +85,6 @@
 <div class="my-4 w-full rounded">
 	{#await eventsPromise then events}
 		{#each Array.from(events) as post}
-			<!--{processEvent(post)}-->
 			<div
 				class="flex flex-row py-5 bg-white w-full md:mb-4 md:rounded md:shadow border-b-gray-300 border-b max-h-24"
 				on:click={() => goto(`/e/${post.id}`)}

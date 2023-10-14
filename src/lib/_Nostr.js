@@ -156,7 +156,7 @@ export default class Nostr {
         const signedEvent = await window.nostr.signEvent(event)
 
         console.log(this.relays);
-        await this.pool.send(["EVENT", signedEvent], this.relays);
+        //await this.pool.send(["EVENT", signedEvent], this.relays);
         // let pub = this.relay.publish(signedEvent);
         // pub.on('ok', () => {
             // reset form

@@ -1,4 +1,10 @@
 <script lang="ts">
+	import login from '../../routes/login.svelte'
+	import { currentUser } from '$lib/stores/currentUser';
+    import { userProfileExists, userProfile } from '$lib/stores/userProfile';
+	import { fetchOwnNpub } from '$lib/utils/login';
+	import { signAndPublishEvent } from '$lib/utils/helpers';
+
 	import PostTypeSelector from './PostTypeSelector.svelte'
 	import { nostrNotes } from '$lib/stores/store'
 	import { onMount } from 'svelte'
@@ -10,15 +16,21 @@
 	let ownPubkey = 'loading'
 	let publishEventId
 
-	/*
 	onMount(async () => {
-		try {
-			ownPubkey = await $nostrPool.fetchOwnProfile()
-		} catch (e) {
-			ownPubkey = null
+		const npub = await fetchOwnNpub();
+		ownPubkey = npub ? npub : "";
+		//console.log('ownPubkey (1): ', ownPubkey)
+		if (ownPubkey == "" && currentUser.npub != undefined){
+			console.log('currentUser (if): ', currentUser)
+			console.log('currentUser.npub: ', currentUser.npub)
+			console.log('ownPubkey (2): ', ownPubkey)
+			ownPubkey = currentUser.npub
+		} else if (ownPubkey == "") {
+			console.log('ownPubkey (3) is empty')
 		}
+		//console.log('ownPubkey (4): ', ownPubkey)
 	})
-	*/
+
 
 	function validate(data) {
 		const validTypes = ['lodging', 'airport', 'coffee', 'surfing', 'climbing', 'psa']
@@ -35,14 +47,6 @@
 		const formData = new FormData(e.target)
 		const data = {}
 
-		/*
-		ownPubkey = await $nostrPool.fetchOwnProfile()
-		if (!ownPubkey) {
-			alert('No nostr pubkey?')
-			return
-		}
-		*/
-
 		for (let field of formData) {
 			const [key, value] = field
 			data[key] = value
@@ -52,7 +56,8 @@
 			return
 		}
 
-		data.categories = [{ events: ['nostrica'] }]
+		data.categories = [{ events: ['nostrasia'] }]
+		//console.log('data: ', data)
 
 		let event = {
 			content: JSON.stringify(data),
@@ -61,11 +66,13 @@
 			tags: [],
 			pubkey: ownPubkey
 		}
+		console.log('event to be sent: ', event)
 
-		/*
-		let { publishEvent } = await $nostrPool.signAndPublishEvent(event)
+		let { publishEvent } = await signAndPublishEvent(event)
+		console.log('publishEvent: ', publishEvent)
+		//let { publishEvent } = await $nostrPool.signAndPublishEvent(event)
 		publishEventId = publishEvent.id
-		*/
+		console.log('publishEventId: ', publishEventId)
 	}
 
 	// hack? what hack?
@@ -73,7 +80,7 @@
 </script>
 
 <div class="my-4 w-full">
-	{#if !ownPubkey}
+	{#if ownPubkey == ""}
 		<div class="bottom-0 p-3 bg-red-600 border-red-800 border-8 text-white w-full text-center">
 			<div class="flex justify-center flex-row items-center">
 				<img

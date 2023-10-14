@@ -18,13 +18,13 @@
 
 	onMount(async () => {
 		myNote = await $ndk.fetchEvent(noteId)
-		console.log('note (in): ', myNote)
+		//console.log('note (in): ', myNote)
 		try {
 			myContent = JSON.parse(myNote.content)
 		} catch (e) {
 			// empty 
 		}
-		console.log('note content (in): ', myContent)
+		//console.log('note content (in): ', myContent)
 	})
 
 	function submit({ detail: formData }) {

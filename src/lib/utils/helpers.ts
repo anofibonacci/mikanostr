@@ -1,4 +1,5 @@
 import type { NDKUser } from '@nostr-dev-kit/ndk'
+import { getEventHash } from 'nostr-tools'
 
 export function dateTomorrow() {
 	return new Date(Date.now() + 3600 * 1000 * 24)
@@ -51,4 +52,33 @@ export function massageString(content) {
 		'<img src="/images/Bitcoin_evergreen.png" style="width: 1.2em; vertical-align: -20%; margin-right: 0.075em; height: 1.2em; margin-left: 2px; display: inline-block;">'
 
 	return content.replace(/#bitcoin/, `#bitcoin${bitcoinImage}`)
+}
+
+
+export async function signAndPublishEvent(event) {
+	console.log('signing and publishing event', event);
+	
+	event.id = getEventHash(event);
+	console.log('event id', event.id);
+	
+	const signedEvent = await window.nostr.signEvent(event)
+	//console.log('signed event', signedEvent);
+
+	//console.log(this.relays);
+	//await this.pool.send(["EVENT", signedEvent], this.relays);
+	// let pub = this.relay.publish(signedEvent);
+	// pub.on('ok', () => {
+		// reset form
+		// document.getElementById('post-form').reset();
+	//     console.log(`ok on ${this.relay.url}`)
+	// })
+	// pub.on('seen', () => {
+	//     console.log(`we saw the event on ${this.relay.url}`)
+	// })
+	// pub.on('failed', reason => {
+	//     console.log(`failed to publish to ${this.relay.url}: ${reason}`)
+	// })
+	// console.log(pub);
+
+	return { publishEvent: signedEvent };
 }

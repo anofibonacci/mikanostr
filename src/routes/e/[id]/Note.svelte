@@ -1,4 +1,6 @@
-<script>
+<script lang="ts">
+	import ndk from '$lib/stores/ndk';
+	import type { NDKUser } from '@nostr-dev-kit/ndk';
 	import { profiles } from '$lib/stores/store'
 	import Avatar from '$lib/components/Avatar.svelte'
 	import NoteContent from '$lib/components/NoteContent.svelte'
@@ -6,7 +8,8 @@
 
 	const timeAgo = new TimeAgo('en-US')
 
-	export let note
+	export let note;
+	let author: NDKUser = $ndk.getUser({ hexpubkey: note.pubkey });
 </script>
 
 <div
@@ -17,7 +20,7 @@
 
 		<div class="pl-6 flex flex-col text-ellipsis">
 			<div class="font-bold text-xl text-clip">
-				{$profiles[note.pubkey]?.display_name}
+				{$note.pubkey?.display_name}
 			</div>
 			<div class="text-xs text-gray-500 mt-1">
 				{timeAgo.format(new Date(note.created_at * 1000))}

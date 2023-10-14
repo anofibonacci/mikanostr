@@ -1,4 +1,6 @@
 <script lang="ts">
+	import ndk from '$lib/stores/ndk';
+	import type { NDKUser } from '@nostr-dev-kit/ndk';
 	import { profiles } from '$lib/stores/store'
 	import TimeAgo from 'javascript-time-ago'
 	import en from 'javascript-time-ago/locale/en'
@@ -13,6 +15,7 @@
 
 	let ownPubkey
 	let parentId
+	let author: NDKUser = $ndk.getUser({ hexpubkey: ownPubkey });
 
 	/*
 	onMount(async () => {
@@ -50,7 +53,7 @@
 
 			<div class="pl-6 flex flex-col flex-1 overflow-hidden">
 				<div class="font-bold text-xl truncate">
-					<span>{$profiles[ownPubkey]?.display_name}</span>
+					<span>{ownPubkey?.display_name}</span>
 				</div>
 
 				<div class="mt-5 bg-slate-50 border">

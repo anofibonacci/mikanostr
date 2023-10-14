@@ -1,4 +1,6 @@
-<script>
+<script lang="ts">
+	import ndk from '$lib/stores/ndk';
+	import type { NDKUser } from '@nostr-dev-kit/ndk';
 	import { profiles } from '$lib/stores/store'
 	import LodgingCard from './LodgingCard.svelte'
 	import TimeAgo from 'javascript-time-ago'
@@ -13,23 +15,38 @@
 	const timeAgo = new TimeAgo('en-US')
 
 	export let note
-	console.log('note: ', note)
+	//console.log('note: ', note)
 	export let content = JSON.parse(note.content)
-	console.log('content: ', content)
+	//console.log('content: ', content)
+	let author: NDKUser = $ndk.getUser({ hexpubkey: note.pubkey });
+	//console.log('author: ', author);
 </script>
 
 
 <div class="bg-purple-900 text-white border md:rounded-lg p-4 w-full my-4">
 	<div class="flex flex-row overflow-clip text-ellipsis items-center">
-		<Avatar klass="m-2 h-16 ring-8 ring-purple-1000" pubkey={note?.pubkey} />
-		<div class="pl-4 flex flex-col text-ellipsis">
-			<div class="font-bold text-xl text-clip">
-				{note.pubkey?.display_name}
+		{#await author.fetchProfile() then eventSet}
+			<Avatar 
+			klass="m-2 h-16 ring-8 ring-purple-1000" 
+			pubkey={note.pubkey}
+			/>
+		<!--
+			pubkey can be either {note.pubkey} (preferred) or {author.hexpubkey}
+			... but not npub={author.npub} 
+		-->
+			<div class="pl-4 flex flex-col text-ellipsis">
+				<div class="font-bold text-xl text-clip">
+					{author.profile?.displayName
+						? author.profile.displayName
+						: author.profile?.name
+						? author.profile.name
+						: 'unknown'}
+				</div>
+				<div class="text-xs text-gray-200 mt-1">
+					{timeAgo.format(new Date(note.created_at * 1000))}
+				</div>
 			</div>
-			<div class="text-xs text-gray-200 mt-1">
-				{timeAgo.format(new Date(note.created_at * 1000))}
-			</div>
-		</div>
+		{/await}
 	</div>
 
 	{#if content?.type === 'lodging'}

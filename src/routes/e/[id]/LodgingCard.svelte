@@ -3,30 +3,31 @@
 	import { formatSatoshis } from '$lib/utils/helpers'
 
 	export let note
+	export let content = JSON.parse(note.content)
 </script>
 
 <div class="mt-3">
 	<div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-purple-900">
-		{#if note.content.checkIn}
-			<Card title="Check-In" value={note.content.checkIn} />
+		{#if content.checkIn}
+			<Card title="Check-In" value={content.checkIn} />
 		{/if}
 
-		{#if note.content.checkOut}
-			<Card title="Check-out" value={note.content.checkOut} />
+		{#if content.checkOut}
+			<Card title="Check-out" value={content.checkOut} />
 		{/if}
 
-		{#if note.content.roomsAvailable}
-			<Card title="Rooms available" value={note.content.roomsAvailable} />
+		{#if content.roomsAvailable}
+			<Card title="Rooms available" value={content.roomsAvailable} />
 		{/if}
 
-		{#if note.content.price}
-			<Card title="Price" value={formatSatoshis(note.content.price)} />
+		{#if content.price}
+			<Card title="Price" value={formatSatoshis(content.price)} />
 		{/if}
 
-		{#if note.content.url}
+		{#if content.url}
 			<Card title="URL">
-				<a href={note.content.url} class="text-purple-900 underline">
-					{note.content.url}
+				<a href={content.url} class="text-purple-900 underline">
+					{content.url}
 				</a>
 			</Card>
 		{/if}
