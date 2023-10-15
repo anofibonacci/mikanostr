@@ -1,4 +1,5 @@
-import type { NDKUser } from '@nostr-dev-kit/ndk'
+import ndk from '$lib/stores/ndk'
+import type { NDKUser, NDKEvent } from '@nostr-dev-kit/ndk'
 import { getEventHash } from 'nostr-tools'
 
 export function dateTomorrow() {
@@ -54,7 +55,6 @@ export function massageString(content) {
 	return content.replace(/#bitcoin/, `#bitcoin${bitcoinImage}`)
 }
 
-
 export async function signAndPublishEvent(event) {
 	console.log('signing and publishing event', event);
 	
@@ -66,6 +66,8 @@ export async function signAndPublishEvent(event) {
 
 	//console.log(this.relays);
 	//await this.pool.send(["EVENT", signedEvent], this.relays);
+	
+	const pub = ndk.publish(signedEvent);
 	// let pub = this.relay.publish(signedEvent);
 	// pub.on('ok', () => {
 		// reset form
@@ -80,5 +82,6 @@ export async function signAndPublishEvent(event) {
 	// })
 	// console.log(pub);
 
-	return { publishEvent: signedEvent };
+	//return { publishEvent: signedEvent };
+	return { signedEvent };
 }

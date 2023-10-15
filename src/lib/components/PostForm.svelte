@@ -1,15 +1,18 @@
 <script lang="ts">
+    import ndk from '$lib/stores/ndk';
 	import login from '../../routes/login.svelte'
 	import { currentUser } from '$lib/stores/currentUser';
     import { userProfileExists, userProfile } from '$lib/stores/userProfile';
 	import { fetchOwnNpub } from '$lib/utils/login';
 	import { signAndPublishEvent } from '$lib/utils/helpers';
+import { get } from 'svelte/store';
 
 	import PostTypeSelector from './PostTypeSelector.svelte'
 	import { nostrNotes } from '$lib/stores/store'
 	import { onMount } from 'svelte'
 	import { validateEvent } from 'nostr-tools'
 	import { createEventDispatcher } from 'svelte'
+	import { NDKEvent } from '@nostr-dev-kit/ndk'
 
 	const dispatch = createEventDispatcher()
 
@@ -59,21 +62,57 @@
 		data.categories = [{ events: ['nostrasia'] }]
 		//console.log('data: ', data)
 
-		let event = {
-			content: JSON.stringify(data),
+		// from NDK readme:
+		/*
+		const ndkEvent = new NDKEvent($ndkStore);
+		ndkEvent.kind = 1;
+		ndkEvent.content = "Konnichiwa!\nCan't believe we'll be in 🇯🇵 so soon!";
+		//ndkEvent.publish(); // This will trigger
+		*/
+
+		const event = new NDKEvent($ndk);
+		event.kind = 120;
+		event.content = JSON.stringify(data);
+		event.created_at = Math.floor(Date.now() / 1000);
+		event.tags = [];
+		event.pubkey = ownPubkey;
+
+		/*
+		let event = new NDKEvent(ndk);
+		event = {
 			kind: 120,
+			content: JSON.stringify(data),
 			created_at: Math.floor(Date.now() / 1000),
 			tags: [],
 			pubkey: ownPubkey
 		}
+		*/
 		console.log('event to be sent: ', event)
 
-		let { publishEvent } = await signAndPublishEvent(event)
-		console.log('publishEvent: ', publishEvent)
-		//let { publishEvent } = await $nostrPool.signAndPublishEvent(event)
-		publishEventId = publishEvent.id
-		console.log('publishEventId: ', publishEventId)
+		//const signedEvent: NDKEvent = await window.nostr.signEvent(event)
+		//console.log('signed event: ', signedEvent);
+		//signedEvent.publish();
+
+		/*
+		signedEvent.publish().then(() => {
+			return json({ signedEvent }, { status: 200 });
+		}).catch((error) => {
+			return json({ error: `Unable to publish note: ${error}` }, { status: 422 });
+		});
+		*/
+
+    	let publishEvent = event;
+    //	let publishEvent = await event.publish();
+        console.log('(not)published event: ', publishEvent);
+
+		publishEventId = publishEvent.id;
+		console.log('publishEventId: ', publishEventId);
+
+        // dispatch custom event
+    	dispatch('post', publishEvent.id);
 	}
+
+	//$: publishEventId && dispatch('post', publishEventId)
 
 	// hack? what hack?
 	//$: publishEventId && $nostrNotes[publishEventId] && dispatch('post', publishEventId)
