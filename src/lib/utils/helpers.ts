@@ -56,22 +56,22 @@ export function massageString(content) {
 }
 
 export async function signAndPublishEvent(event) {
-	console.log('signing and publishing event', event);
-	
-	event.id = getEventHash(event);
-	console.log('event id', event.id);
-	
+	console.log('signing and publishing event', event)
+
+	event.id = getEventHash(event)
+	console.log('event id', event.id)
+
 	const signedEvent = await window.nostr.signEvent(event)
 	//console.log('signed event', signedEvent);
 
 	//console.log(this.relays);
 	//await this.pool.send(["EVENT", signedEvent], this.relays);
-	
-	const pub = ndk.publish(signedEvent);
+
+	const pub = ndk.publish(signedEvent)
 	// let pub = this.relay.publish(signedEvent);
 	// pub.on('ok', () => {
-		// reset form
-		// document.getElementById('post-form').reset();
+	// reset form
+	// document.getElementById('post-form').reset();
 	//     console.log(`ok on ${this.relay.url}`)
 	// })
 	// pub.on('seen', () => {
@@ -83,5 +83,5 @@ export async function signAndPublishEvent(event) {
 	// console.log(pub);
 
 	//return { publishEvent: signedEvent };
-	return { signedEvent };
+	return { signedEvent }
 }

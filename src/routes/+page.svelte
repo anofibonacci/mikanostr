@@ -37,8 +37,8 @@
 	// sort array eventsPromise by created_at
 
 	//async function processEvent(event: NDKEvent) {
-		//try { event.content = JSON.parse(event.content); } catch (e) { /* empty */ }
-		/*
+	//try { event.content = JSON.parse(event.content); } catch (e) { /* empty */ }
+	/*
 		if (event.kind === 2) {
 			console.log(`got post ${event.id}`);
 		} else if (event.kind === 120) {
@@ -61,10 +61,11 @@
 		});
 	}*/
 
-	function posted(event) {
-		const eventId = event.detail
+	function posted(event: NDKEvent) {
+		//const event = event
 		showForm = false
-		// goto(`/e/${eventId}`);
+		//goto(`/e/${eventId}`);
+		console.log('posted event: ', event)
 	}
 </script>
 

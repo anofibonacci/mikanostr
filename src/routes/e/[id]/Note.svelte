@@ -1,6 +1,6 @@
 <script lang="ts">
-	import ndk from '$lib/stores/ndk';
-	import type { NDKUser } from '@nostr-dev-kit/ndk';
+	import ndk from '$lib/stores/ndk'
+	import type { NDKUser } from '@nostr-dev-kit/ndk'
 	import { profiles } from '$lib/stores/store'
 	import Avatar from '$lib/components/Avatar.svelte'
 	import NoteContent from '$lib/components/NoteContent.svelte'
@@ -8,8 +8,8 @@
 
 	const timeAgo = new TimeAgo('en-US')
 
-	export let note;
-	let author: NDKUser = $ndk.getUser({ hexpubkey: note.pubkey });
+	export let note
+	let author: NDKUser = $ndk.getUser({ hexpubkey: note.pubkey })
 </script>
 
 <div

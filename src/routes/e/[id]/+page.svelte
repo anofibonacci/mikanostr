@@ -12,6 +12,7 @@
 	import { page } from '$app/stores'
 
 	export let noteId = $page.params.id
+	console.log('noteId: ', noteId)
 	let myNote: NDKEvent
 	let myContent: any
 	export let showReplyForm = false
@@ -22,7 +23,7 @@
 		try {
 			myContent = JSON.parse(myNote.content)
 		} catch (e) {
-			// empty 
+			// empty
 		}
 		//console.log('note content (in): ', myContent)
 	})

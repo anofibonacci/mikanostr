@@ -1,21 +1,49 @@
 <script lang="ts">
-	import ndk from '$lib/stores/ndk';
-	import type { NDKUser } from '@nostr-dev-kit/ndk';
+	import ndk from '$lib/stores/ndk'
+	import { NDKEvent } from '@nostr-dev-kit/ndk'
+	import type { NDKUser, NDKUserProfile } from '@nostr-dev-kit/ndk'
 	import { profiles } from '$lib/stores/store'
 	import TimeAgo from 'javascript-time-ago'
 	import en from 'javascript-time-ago/locale/en'
-	import { onMount } from 'svelte'
-	import { createEventDispatcher } from 'svelte'
+	import { onMount, tick, createEventDispatcher } from 'svelte'
 	import Avatar from '$lib/components/Avatar.svelte'
+	import { goto } from '$app/navigation'
+
+	import { currentUser } from '$lib/stores/currentUser'
+	//import { userProfileExists, userProfile } from '$lib/stores/userProfile';
+	import { fetchOwnNpub } from '$lib/utils/login'
 
 	const dispatch = createEventDispatcher()
 
-	TimeAgo.addDefaultLocale(en)
+	//TimeAgo.addDefaultLocale(en)
 	const timeAgo = new TimeAgo('en-US')
 
-	let ownPubkey
-	let parentId
-	let author: NDKUser = $ndk.getUser({ hexpubkey: ownPubkey });
+	export let ownPubkey = 'loading'
+	export let me: NDKUser
+	export let profile: NDKUserProfile
+	onMount(async () => {
+		const npub = await fetchOwnNpub()
+		ownPubkey = npub ? npub : ''
+		//console.log('ownPubkey (1): ', ownPubkey)
+		if (ownPubkey == '' && currentUser.npub != undefined) {
+			console.log('currentUser (if): ', currentUser)
+			console.log('currentUser.npub: ', currentUser.npub)
+			console.log('ownPubkey (2): ', ownPubkey)
+			ownPubkey = currentUser.npub
+		} else if (ownPubkey == '') {
+			console.log('ownPubkey (3) is empty')
+		}
+		//console.log('ownPubkey (4): ', ownPubkey)
+		if (ownPubkey != '') {
+			console.log('ownPubkey: ', ownPubkey)
+			me = $ndk.getUser({ hexpubkey: ownPubkey })
+			//console.log('me: ', me)
+			//profile = me.fetchProfile()
+		}
+	})
+
+	export let parentId
+	export let replyEvent = new NDKEvent($ndk)
 
 	/*
 	onMount(async () => {
@@ -30,17 +58,22 @@
 		e.preventDefault()
 		const formData = new FormData(e.target)
 
-		let event = {
-			content: formData.get('comment'),
-			kind: 1,
-			created_at: Math.floor(Date.now() / 1000),
-			tags: [['e', parentId]],
-			pubkey: ownPubkey
-		}
+		replyEvent.content = formData.get('comment')
+		replyEvent.kind = 1
+		replyEvent.created_at = Math.floor(Date.now() / 1000)
+		replyEvent.tags = [['e', parentId]]
+		replyEvent.pubkey = ownPubkey
+
+		console.log('replyEvent: ', replyEvent)
 
 		// await $.signAndPublishEvent(event)
-
 		// dispatch('submit', formData);
+
+		let publishedReplyEvent = await replyEvent.publish()
+		//	let publishedReplyEvent = replyEvent;
+		console.log('published reply event: ', publishedReplyEvent)
+		//dispatch('post', publishedReplyEvent);
+		goto('/')
 	}
 </script>
 
@@ -49,32 +82,36 @@
 >
 	<form method="POST" action="?post" on:submit={submit} id="add-form" class="w-full">
 		<div class="flex flex-row">
-			<Avatar klass="m-2 h-16 w-16 ring-4 ring-purple-700 rounded-full" pubkey={ownPubkey} />
+			{#await me?.fetchProfile() then profile}
+				<Avatar
+					klass="m-2 h-16 w-16 ring-4 ring-purple-700 rounded-full"
+					pubkey={ownPubkey}
+				/>
+				<div class="pl-6 flex flex-col flex-1 overflow-hidden">
+					<div class="font-bold text-xl truncate">
+						<span>{profile?.displayName} {profile?.name}</span>
+					</div>
 
-			<div class="pl-6 flex flex-col flex-1 overflow-hidden">
-				<div class="font-bold text-xl truncate">
-					<span>{ownPubkey?.display_name}</span>
-				</div>
+					<div class="mt-5 bg-slate-50 border">
+						<textarea
+							rows="3"
+							name="comment"
+							id="comment"
+							class="block border-0 w-full bg-white text-black resize-none focus:resize-y hover:resize"
+						/>
+					</div>
 
-				<div class="mt-5 bg-slate-50 border">
-					<textarea
-						rows="3"
-						name="comment"
-						id="comment"
-						class="block border-0 w-full bg-white text-black resize-none focus:resize-y hover:resize"
-					/>
+					<div class="flex">
+						<button
+							type="submit"
+							class="flex-1 rounded-t-none text-center rounded-md border border-transparent bg-purple-900 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-purple-800 focus:outline-none ocus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex flex-row items-center justify-center"
+						>
+							<span class="mr-2">🤙</span>
+							<div class="flex flex-col items-start">Post it!</div>
+						</button>
+					</div>
 				</div>
-
-				<div class="flex">
-					<button
-						type="submit"
-						class="flex-1 rounded-t-none text-center rounded-md border border-transparent bg-purple-900 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-purple-800 focus:outline-none ocus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex flex-row items-center justify-center"
-					>
-						<span class="mr-2">🤙</span>
-						<div class="flex flex-col items-start">Post it!</div>
-					</button>
-				</div>
-			</div>
+			{/await}
 		</div>
 	</form>
 </div>

@@ -1,39 +1,39 @@
 <script lang="ts">
-    import ndk from '$lib/stores/ndk';
+	import ndk from '$lib/stores/ndk'
 	import login from '../../routes/login.svelte'
-	import { currentUser } from '$lib/stores/currentUser';
-    import { userProfileExists, userProfile } from '$lib/stores/userProfile';
-	import { fetchOwnNpub } from '$lib/utils/login';
-	import { signAndPublishEvent } from '$lib/utils/helpers';
-import { get } from 'svelte/store';
+	import { currentUser } from '$lib/stores/currentUser'
+	import { userProfileExists, userProfile } from '$lib/stores/userProfile'
+	import { fetchOwnNpub } from '$lib/utils/login'
+	import { signAndPublishEvent } from '$lib/utils/helpers'
+	import { tesingRelay } from '$lib/stores/relays'
+	import { get } from 'svelte/store'
 
 	import PostTypeSelector from './PostTypeSelector.svelte'
 	import { nostrNotes } from '$lib/stores/store'
 	import { onMount } from 'svelte'
 	import { validateEvent } from 'nostr-tools'
 	import { createEventDispatcher } from 'svelte'
-	import { NDKEvent } from '@nostr-dev-kit/ndk'
+	import { NDKEvent, NDKRelay, NDKRelaySet } from '@nostr-dev-kit/ndk'
 
 	const dispatch = createEventDispatcher()
 
 	let ownPubkey = 'loading'
-	let publishEventId
+	//let publishEventId
 
 	onMount(async () => {
-		const npub = await fetchOwnNpub();
-		ownPubkey = npub ? npub : "";
+		const npub = await fetchOwnNpub()
+		ownPubkey = npub ? npub : ''
 		//console.log('ownPubkey (1): ', ownPubkey)
-		if (ownPubkey == "" && currentUser.npub != undefined){
+		if (ownPubkey == '' && currentUser.npub != undefined) {
 			console.log('currentUser (if): ', currentUser)
 			console.log('currentUser.npub: ', currentUser.npub)
 			console.log('ownPubkey (2): ', ownPubkey)
 			ownPubkey = currentUser.npub
-		} else if (ownPubkey == "") {
+		} else if (ownPubkey == '') {
 			console.log('ownPubkey (3) is empty')
 		}
 		//console.log('ownPubkey (4): ', ownPubkey)
 	})
-
 
 	function validate(data) {
 		const validTypes = ['lodging', 'airport', 'coffee', 'surfing', 'climbing', 'psa']
@@ -70,12 +70,12 @@ import { get } from 'svelte/store';
 		//ndkEvent.publish(); // This will trigger
 		*/
 
-		const event = new NDKEvent($ndk);
-		event.kind = 120;
-		event.content = JSON.stringify(data);
-		event.created_at = Math.floor(Date.now() / 1000);
-		event.tags = [];
-		event.pubkey = ownPubkey;
+		const event = new NDKEvent($ndk)
+		event.kind = 120
+		event.content = JSON.stringify(data)
+		event.created_at = Math.floor(Date.now() / 1000)
+		event.tags = []
+		event.pubkey = ownPubkey
 
 		/*
 		let event = new NDKEvent(ndk);
@@ -101,25 +101,37 @@ import { get } from 'svelte/store';
 		});
 		*/
 
-    	let publishEvent = event;
-    //	let publishEvent = await event.publish();
-        console.log('(not)published event: ', publishEvent);
+		/*
+		// relay
+		const relay = new NDKRelay(tesingRelay);
+		console.log('tesingRelay: ', tesingRelay);
+		// relaySet
+		const relaySet = new NDKRelaySet(relay, $ndk);
+		console.log('relaySet: ', relaySet);
+    	let publishedEvent = await event.publish(relaySet);
+		*/
 
-		publishEventId = publishEvent.id;
-		console.log('publishEventId: ', publishEventId);
+		//	let publishedEvent = event;
+		//    console.log('(not)published event: ', publishedEvent);
+		let publishedEvent = await event.publish()
+		console.log('published event: ', publishedEvent)
 
-        // dispatch custom event
-    	dispatch('post', publishEvent.id);
+		//publishedEventId = publishedEvent.id;
+		//console.log('publishedEventId: ', publishedEventId);
+
+		// dispatch custom event
+		//dispatch('post', publishedEvent.id);
+		dispatch('post', publishedEvent)
 	}
 
-	//$: publishEventId && dispatch('post', publishEventId)
+	//$: publishedEventId && dispatch('post', publishedEventId)
 
 	// hack? what hack?
-	//$: publishEventId && $nostrNotes[publishEventId] && dispatch('post', publishEventId)
+	//$: publishedEventId && $nostrNotes[publishedEventId] && dispatch('post', publishedEventId)
 </script>
 
 <div class="my-4 w-full">
-	{#if ownPubkey == ""}
+	{#if ownPubkey == ''}
 		<div class="bottom-0 p-3 bg-red-600 border-red-800 border-8 text-white w-full text-center">
 			<div class="flex justify-center flex-row items-center">
 				<img
