@@ -7,6 +7,8 @@
 	TimeAgo.addDefaultLocale(en)
 
 	import '../app.css'
+	
+	export const prerender = true
 
 	let displayRelayInfo = false
 

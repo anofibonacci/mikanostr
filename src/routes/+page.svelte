@@ -67,6 +67,12 @@
 		//goto(`/e/${eventId}`);
 		console.log('posted event: ', event)
 	}
+
+	/*
+	After await eventsPromise below,
+	I'd like to filter by content > categories > events > nostrasia 
+	// "{"type":"climbing","title":"any climbers?","categories":[{"events":["nostrica"]}]}"
+	*/
 </script>
 
 <NavBar />

@@ -1,22 +1,22 @@
 <script>
-	import parse from 'date-fns/parse'
-	import { intlFormat } from 'date-fns'
+	import dayjs from 'dayjs';
+	import customParseFormat from 'dayjs/plugin/customParseFormat'
+
+	dayjs.extend(customParseFormat)
 
 	export let date, endDate
-	let day, month, dayName
-	let endDay, endMonth, endDayName
+	let day, month
+	let endDay, endMonth
 
-	let parsedDate = parse(date, 'yyyy-MM-dd', new Date())
-	let parsedEndDate = parse(endDate, 'yyyy-MM-dd', new Date())
+	let sDate = dayjs(date, 'YYYY-MM-DD')
+	let eDate = dayjs(endDate, 'YYYY-MM-DD')
 
-	day = intlFormat(parsedDate, { day: 'numeric' })
-	month = intlFormat(parsedDate, { month: 'short' })
-	dayName = intlFormat(parsedDate, { weekday: 'long' })
+	day = sDate.format('D')
+	month = sDate.format('MMM')
 
 	if (endDate) {
-		endDay = intlFormat(parsedEndDate, { day: 'numeric' })
-		endMonth = intlFormat(parsedEndDate, { month: 'short' })
-		endDayName = intlFormat(parsedEndDate, { weekday: 'long' })
+		endDay = eDate.format('D')
+		endMonth = eDate.format('MMM')
 	}
 </script>
 

@@ -8,11 +8,14 @@
 	import MarkdownIt from 'markdown-it'
 	import NoteContent from '$lib/components/NoteContent.svelte'
 	import Avatar from '$lib/components/Avatar.svelte'
+	import dayjs from 'dayjs';
+	import relativeTime from 'dayjs/plugin/relativeTime'
+
+	dayjs.extend(relativeTime)
 
 	let md = new MarkdownIt()
 
 	const dispatch = createEventDispatcher()
-	const timeAgo = new TimeAgo('en-US')
 
 	export let note
 	//console.log('note: ', note)
@@ -39,7 +42,7 @@
 						: 'unknown'}
 				</div>
 				<div class="text-xs text-gray-200 mt-1">
-					{timeAgo.format(new Date(note.created_at * 1000))}
+					{dayjs().to(dayjs(note.created_at * 1000))}
 				</div>
 			</div>
 		{/await}

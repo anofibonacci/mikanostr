@@ -10,10 +10,12 @@
 
 	export let note
 	let author: NDKUser = $ndk.getUser({ hexpubkey: note.pubkey })
+
+	console.log("I don't think this page is used (Note.svelte)")
 </script>
 
 <div
-	class="bg-white border border-l-purple-900 border-l-8 rounded-l-none rounded-lg p-4 w-full text-gray-700 my-4"
+	class="bg-white border border-l-red-900 border-l-8 rounded-l-none rounded-lg p-4 w-full text-gray-700 my-4"
 >
 	<div class="flex flex-row overflow-clip text-ellipsis">
 		<Avatar klass="ring-purple-900 m-2 h-16" pubkey={note.pubkey} />

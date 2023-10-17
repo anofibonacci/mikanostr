@@ -7,6 +7,7 @@
 	import { signAndPublishEvent } from '$lib/utils/helpers'
 	import { tesingRelay } from '$lib/stores/relays'
 	import { get } from 'svelte/store'
+	import dayjs from 'dayjs';
 
 	import PostTypeSelector from './PostTypeSelector.svelte'
 	import { nostrNotes } from '$lib/stores/store'
@@ -73,7 +74,7 @@
 		const event = new NDKEvent($ndk)
 		event.kind = 120
 		event.content = JSON.stringify(data)
-		event.created_at = Math.floor(Date.now() / 1000)
+		event.created_at = dayjs().unix()
 		event.tags = []
 		event.pubkey = ownPubkey
 

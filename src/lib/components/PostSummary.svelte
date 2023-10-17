@@ -7,7 +7,6 @@
 	import NoteContent from '$lib/components/NoteContent.svelte'
 	import { formatSatoshis } from '$lib/utils/helpers'
 	import { massageString } from '$lib/utils/helpers'
-	import { intlFormat } from 'date-fns'
 
 	export let post: NDKEvent
 	//console.log("ID: ", post.id);

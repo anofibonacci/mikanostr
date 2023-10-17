@@ -58,6 +58,7 @@ declare module '$env/static/private' {
 	export const npm_package_devDependencies__sveltejs_kit: string;
 	export const npm_config_registry: string;
 	export const PNPM_HOME: string;
+	export const npm_package_dependencies_dayjs: string;
 	export const USER: string;
 	export const npm_package_scripts_check_watch: string;
 	export const COMMAND_MODE: string;
@@ -92,6 +93,7 @@ declare module '$env/static/private' {
 	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 	export const XPC_FLAGS: string;
 	export const npm_package_devDependencies_eslint_config_prettier: string;
+	export const npm_package_dependencies_relativeTime: string;
 	export const npm_config_node_gyp: string;
 	export const XPC_SERVICE_NAME: string;
 	export const npm_package_version: string;
@@ -99,6 +101,7 @@ declare module '$env/static/private' {
 	export const VSCODE_INJECTION: string;
 	export const npm_package_devDependencies_autoprefixer: string;
 	export const npm_package_devDependencies_svelte_check: string;
+	export const npm_package_dependencies_customParseFormat: string;
 	export const SHLVL: string;
 	export const HOME: string;
 	export const npm_package_type: string;
@@ -117,6 +120,7 @@ declare module '$env/static/private' {
 	export const GIT_ASKPASS: string;
 	export const INFOPATH: string;
 	export const HOMEBREW_CELLAR: string;
+	export const npm_package_dependencies__sveltejs_adapter_static: string;
 	export const npm_package_scripts_check: string;
 	export const COLORTERM: string;
 	export const npm_package_dependencies__fontsource_jetbrains_mono: string;
@@ -183,6 +187,7 @@ declare module '$env/dynamic/private' {
 		npm_package_devDependencies__sveltejs_kit: string;
 		npm_config_registry: string;
 		PNPM_HOME: string;
+		npm_package_dependencies_dayjs: string;
 		USER: string;
 		npm_package_scripts_check_watch: string;
 		COMMAND_MODE: string;
@@ -217,6 +222,7 @@ declare module '$env/dynamic/private' {
 		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 		XPC_FLAGS: string;
 		npm_package_devDependencies_eslint_config_prettier: string;
+		npm_package_dependencies_relativeTime: string;
 		npm_config_node_gyp: string;
 		XPC_SERVICE_NAME: string;
 		npm_package_version: string;
@@ -224,6 +230,7 @@ declare module '$env/dynamic/private' {
 		VSCODE_INJECTION: string;
 		npm_package_devDependencies_autoprefixer: string;
 		npm_package_devDependencies_svelte_check: string;
+		npm_package_dependencies_customParseFormat: string;
 		SHLVL: string;
 		HOME: string;
 		npm_package_type: string;
@@ -242,6 +249,7 @@ declare module '$env/dynamic/private' {
 		GIT_ASKPASS: string;
 		INFOPATH: string;
 		HOMEBREW_CELLAR: string;
+		npm_package_dependencies__sveltejs_adapter_static: string;
 		npm_package_scripts_check: string;
 		COLORTERM: string;
 		npm_package_dependencies__fontsource_jetbrains_mono: string;

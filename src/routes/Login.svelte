@@ -19,6 +19,7 @@
 				window.sessionStorage.setItem('feedstrCurrentUser', JSON.stringify(user))
 				//document.cookie = `userNpub=${user.npub};
 				//expires=${dateTomorrow()}; SameSite=Lax; Secure`
+				// I updated the dateTomorrow method, so ^ this might not work
 				user.fetchProfile().then((eventSet) => {
 					console.log('user: ', user)
 					userProfile.set(user.profile as NDKUserProfile)

@@ -1,9 +1,11 @@
 import ndk from '$lib/stores/ndk'
 import type { NDKUser, NDKEvent } from '@nostr-dev-kit/ndk'
 import { getEventHash } from 'nostr-tools'
+import dayjs from 'dayjs';
 
 export function dateTomorrow() {
-	return new Date(Date.now() + 3600 * 1000 * 24)
+	//return new Date(Date.now() + 3600 * 1000 * 24)
+	return dayjs().add(1, 'day')
 }
 
 export function truncatedBech(bech32: string, length?: number): string {

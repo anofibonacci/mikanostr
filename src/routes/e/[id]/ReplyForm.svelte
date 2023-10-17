@@ -8,6 +8,7 @@
 	import { onMount, tick, createEventDispatcher } from 'svelte'
 	import Avatar from '$lib/components/Avatar.svelte'
 	import { goto } from '$app/navigation'
+	import dayjs from 'dayjs';
 
 	import { currentUser } from '$lib/stores/currentUser'
 	//import { userProfileExists, userProfile } from '$lib/stores/userProfile';
@@ -60,7 +61,7 @@
 
 		replyEvent.content = formData.get('comment')
 		replyEvent.kind = 1
-		replyEvent.created_at = Math.floor(Date.now() / 1000)
+		replyEvent.created_at = dayjs().unix()
 		replyEvent.tags = [['e', parentId]]
 		replyEvent.pubkey = ownPubkey
 
@@ -71,7 +72,7 @@
 
 		let publishedReplyEvent = await replyEvent.publish()
 		//	let publishedReplyEvent = replyEvent;
-		console.log('published reply event: ', publishedReplyEvent)
+		console.log('published reply event yields Set of Relays: ', publishedReplyEvent)
 		//dispatch('post', publishedReplyEvent);
 		goto('/')
 	}
