@@ -1,11 +1,11 @@
 <script lang="ts">
 	import ndk from '$lib/stores/ndk'
-	import login from '../../routes/login.svelte'
+	//import login from '../../routes/login.svelte'
 	import { currentUser } from '$lib/stores/currentUser'
-	import { userProfileExists, userProfile } from '$lib/stores/userProfile'
+	//import { userProfileExists, userProfile } from '$lib/stores/userProfile'
 	import { fetchOwnNpub } from '$lib/utils/login'
-	import { signAndPublishEvent } from '$lib/utils/helpers'
-	import { tesingRelay } from '$lib/stores/relays'
+	//import { signAndPublishEvent } from '$lib/utils/helpers'
+	//import { tesingRelay } from '$lib/stores/relays'
 	import { get } from 'svelte/store'
 	import dayjs from 'dayjs';
 
