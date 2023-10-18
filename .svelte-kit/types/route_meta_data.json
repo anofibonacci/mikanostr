@@ -1,4 +1,9 @@
 {
-	"/": [],
-	"/e/[id]": []
+	"/": [
+		"src/routes/+layout.ts",
+		"src/routes/+layout.ts"
+	],
+	"/e/[id]": [
+		"src/routes/+layout.ts"
+	]
 }

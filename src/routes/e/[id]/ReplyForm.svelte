@@ -20,8 +20,8 @@
 	const timeAgo = new TimeAgo('en-US')
 
 	export let ownPubkey = 'loading'
-	export let me: NDKUser
-	export let profile: NDKUserProfile
+	let me: NDKUser
+	let profile: NDKUserProfile
 	onMount(async () => {
 		const npub = await fetchOwnNpub()
 		ownPubkey = npub ? npub : ''

@@ -11,7 +11,7 @@
 	export let post: NDKEvent
 	//console.log("ID: ", post.id);
 	//console.log("pubkey: ", post.pubkey);
-	//console.log("post: ", post);
+	console.log("post: ", post);
 
 	const content = JSON.parse(post.content)
 	//console.log("content: ", content);

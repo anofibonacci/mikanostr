@@ -73,7 +73,6 @@ declare module '$env/static/private' {
 	export const npm_package_devDependencies_svelte: string;
 	export const npm_config_frozen_lockfile: string;
 	export const PATH: string;
-	export const npm_package_devDependencies__sveltejs_adapter_node: string;
 	export const npm_package_dependencies_markdown_it: string;
 	export const npm_package_dependencies_open_props: string;
 	export const USER_ZDOTDIR: string;
@@ -83,7 +82,6 @@ declare module '$env/static/private' {
 	export const npm_command: string;
 	export const npm_package_scripts_preview: string;
 	export const npm_package_dependencies__nostr_dev_kit_ndk_svelte_components: string;
-	export const npm_package_dependencies_date_fns: string;
 	export const npm_lifecycle_event: string;
 	export const LANG: string;
 	export const npm_package_name: string;
@@ -97,7 +95,6 @@ declare module '$env/static/private' {
 	export const npm_config_node_gyp: string;
 	export const XPC_SERVICE_NAME: string;
 	export const npm_package_version: string;
-	export const npm_package_devDependencies__sveltejs_adapter_auto: string;
 	export const VSCODE_INJECTION: string;
 	export const npm_package_devDependencies_autoprefixer: string;
 	export const npm_package_devDependencies_svelte_check: string;
@@ -107,6 +104,7 @@ declare module '$env/static/private' {
 	export const npm_package_type: string;
 	export const npm_package_dependencies_nostr_tools: string;
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
+	export const npm_package_devDependencies__sveltejs_adapter_vercel: string;
 	export const npm_package_dependencies__tailwindcss_typography: string;
 	export const HOMEBREW_PREFIX: string;
 	export const npm_package_dependencies_svelte_local_storage_store: string;
@@ -120,7 +118,6 @@ declare module '$env/static/private' {
 	export const GIT_ASKPASS: string;
 	export const INFOPATH: string;
 	export const HOMEBREW_CELLAR: string;
-	export const npm_package_dependencies__sveltejs_adapter_static: string;
 	export const npm_package_scripts_check: string;
 	export const COLORTERM: string;
 	export const npm_package_dependencies__fontsource_jetbrains_mono: string;
@@ -202,7 +199,6 @@ declare module '$env/dynamic/private' {
 		npm_package_devDependencies_svelte: string;
 		npm_config_frozen_lockfile: string;
 		PATH: string;
-		npm_package_devDependencies__sveltejs_adapter_node: string;
 		npm_package_dependencies_markdown_it: string;
 		npm_package_dependencies_open_props: string;
 		USER_ZDOTDIR: string;
@@ -212,7 +208,6 @@ declare module '$env/dynamic/private' {
 		npm_command: string;
 		npm_package_scripts_preview: string;
 		npm_package_dependencies__nostr_dev_kit_ndk_svelte_components: string;
-		npm_package_dependencies_date_fns: string;
 		npm_lifecycle_event: string;
 		LANG: string;
 		npm_package_name: string;
@@ -226,7 +221,6 @@ declare module '$env/dynamic/private' {
 		npm_config_node_gyp: string;
 		XPC_SERVICE_NAME: string;
 		npm_package_version: string;
-		npm_package_devDependencies__sveltejs_adapter_auto: string;
 		VSCODE_INJECTION: string;
 		npm_package_devDependencies_autoprefixer: string;
 		npm_package_devDependencies_svelte_check: string;
@@ -236,6 +230,7 @@ declare module '$env/dynamic/private' {
 		npm_package_type: string;
 		npm_package_dependencies_nostr_tools: string;
 		VSCODE_GIT_ASKPASS_MAIN: string;
+		npm_package_devDependencies__sveltejs_adapter_vercel: string;
 		npm_package_dependencies__tailwindcss_typography: string;
 		HOMEBREW_PREFIX: string;
 		npm_package_dependencies_svelte_local_storage_store: string;
@@ -249,7 +244,6 @@ declare module '$env/dynamic/private' {
 		GIT_ASKPASS: string;
 		INFOPATH: string;
 		HOMEBREW_CELLAR: string;
-		npm_package_dependencies__sveltejs_adapter_static: string;
 		npm_package_scripts_check: string;
 		COLORTERM: string;
 		npm_package_dependencies__fontsource_jetbrains_mono: string;
