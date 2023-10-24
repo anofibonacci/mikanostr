@@ -19,8 +19,8 @@
 		<option value="lodging">🛌 Lodging</option>
 		<option value="airport">🚐 Transport from/to airport</option>
 		<option value="coffee">☕️ meet for coffee</option>
-		<option value="surfing">🏄 meet for surfing</option>
-		<option value="climbing">🧗‍♀️ meet for climbing</option>
+		<option value="karaoke">🎤 meet for karaoke</option>
+		<option value="sushi">🍣 meet for sushi</option>
 		<option value="psa">📢 general announce</option>
 	</select>
 </div>
