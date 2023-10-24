@@ -30,7 +30,7 @@
 	})
 
 	function validate(data) {
-		const validTypes = ['lodging', 'airport', 'coffee', 'surfing', 'climbing', 'psa']
+		const validTypes = ['lodging', 'airport', 'coffee', 'karaoke', 'sushi', 'psa']
 
 		if (!data.type || !validTypes.includes(data.type)) {
 			return false
