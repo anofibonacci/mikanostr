@@ -4,9 +4,9 @@
 	import PostForm from '$lib/components/PostForm.svelte'
 	import PostSummary from '$lib/components/PostSummary.svelte'
 	import ndk from '$lib/stores/ndk'
+	import type { NDKEvent } from '@nostr-dev-kit/ndk'
 	//import { nostrNotes, posts } from '$lib/stores/store'
 	import { goto } from '$app/navigation'
-	//import { processEvent} from '$lib/nostr'
 
 	let showForm = false
 
@@ -14,16 +14,23 @@
 		showForm = !showForm
 	}
 
+	/*
 	const eventsPromise = $ndk.fetchEvents({
+		//kinds: [121 as number]
 		kinds: [120 as number]
 	})
+	// switching to draw events from subscription instead of fetch...
+	*/
 
-	// attempted to draw events from subscription instead...
-	/*
-	let events = [];
-	const eventsSub = $ndk.subscribe({ kinds: [120] });
+	let events: NDKEvent[] = [];
+	function fetchEventsFromSub() {
+		const eventsSub = $ndk.subscribe({ kinds: [120] }, { closeOnEose: false });
+
 		eventsSub.on('event', (event) => {
-			console.log(...events, event);
+			events.push(event);
+			events = events;
+			//console.log(...events, event);
+			//console.log("subs event: ", event);
 		});
 		eventsSub.on('eose', () => {
 			console.log('EOSE');
@@ -31,10 +38,16 @@
 		eventsSub.on('notice', (notice) => {
 			console.log(notice);
 		});
-	*/
-
-	// still to implement:
-	// sort array eventsPromise by created_at
+	}
+	fetchEventsFromSub();
+	// still need to fix: sort array events by created_at
+	events.sort((a, b) => {
+		if (a.created_at && b.created_at) {
+			return b.created_at - a.created_at;
+		} else {
+			return 0;
+		}
+	});
 
 	//async function processEvent(event: NDKEvent) {
 	//try { event.content = JSON.parse(event.content); } catch (e) { /* empty */ }
@@ -59,7 +72,57 @@
 			if (Object.values(notes).length > 17) { console.log(`notes: ${notes}`);}
 			return notes;
 		});
+
+        // annotate events this event references
+        for (let tag of event.tags) {
+            const [ type, eventId ] = tag;
+            if (type === 'e') {
+                nostrNotes.update((notes) => {
+                    notes.responses[eventId] = notes.responses[eventId] || [];
+
+                    // don't add duplicate responses
+                    if (!notes.responses[eventId].includes(event.id)) {
+                        notes.responses[eventId].push(event.id);
+                    }
+
+                    // sort responses by timestamp
+                    notes.responses[eventId].sort((a, b) => {
+                        return notes[a].created_at - notes[b].created_at;
+                    }).reverse();
+
+                    return notes;
+                });
+            }
+        }
 	}*/
+
+	function findTagsForEvent(event: NDKEvent) {
+        console.log("tags: ",event.tags)
+        for (let tag of event.tags) {
+            const [ type, eventId ] = tag;
+            if (type === 'e') {
+				console.log(`it's a ${event.kind} post ${event.id}`);
+				console.log(tag);
+				/*
+                nostrNotes.update((notes) => {
+                    notes.responses[eventId] = notes.responses[eventId] || [];
+
+                    // don't add duplicate responses
+                    if (!notes.responses[eventId].includes(event.id)) {
+                        notes.responses[eventId].push(event.id);
+                    }
+
+                    // sort responses by timestamp
+                    notes.responses[eventId].sort((a, b) => {
+                        return notes[a].created_at - notes[b].created_at;
+                    }).reverse();
+
+                    return notes;
+                });
+				*/
+            }
+        }
+	}
 
 	function posted(event: NDKEvent) {
 		//const event = event
@@ -89,9 +152,11 @@
 	<PostForm on:post={posted} />
 {/if}
 
-<div class="my-4 w-full rounded">
-	{#await eventsPromise then events}
-		{#each Array.from(events) as post}
+
+{#if events.length > 0}
+	<div class="my-4 w-full rounded">
+		{#each events as post}
+			<!--{findTagsForEvent(post)}-->
 			<div
 				class="flex flex-row py-5 bg-white w-full md:mb-4 md:rounded md:shadow border-b-gray-300 border-b max-h-24"
 				on:click={() => goto(`/e/${post.id}`)}
@@ -101,5 +166,7 @@
 			</div>
 			<!--p><a href="/e/${post.id}">click</a></p-->
 		{/each}
-	{/await}
-</div>
+	</div>
+{:else}
+	<div>No posts yet...</div>
+{/if}

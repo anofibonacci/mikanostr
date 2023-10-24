@@ -4,7 +4,7 @@
 	import ReplyForm from './ReplyForm.svelte'
 	import { nostrNotes, profiles } from '$lib/stores/store'
 	import HeadNote from './HeadNote.svelte'
-	//import Note from './Note.svelte'
+	import Note from './Note.svelte'
 
 	import { onMount } from 'svelte'
 	import NavBar from '$lib/components/NavBar.svelte'
@@ -19,7 +19,8 @@
 
 	onMount(async () => {
 		myNote = await $ndk.fetchEvent(noteId)
-		//console.log('note (in): ', myNote)
+		console.log('note (in): ', myNote)
+		console.log('tags: ', myNote.tags)
 		try {
 			myContent = JSON.parse(myNote.content)
 		} catch (e) {
@@ -59,6 +60,22 @@
 
 		{#if showReplyForm}
 			<ReplyForm on:submit={submit} parentId={noteId} />
+		{/if}
+
+		<h1 class="text-purple-700">
+			Comments
+			<span>
+				{#if ($nostrNotes.responses[noteId])}
+					({$nostrNotes.responses[noteId].length})
+				{/if}
+			</span>
+		</h1>
+	
+		{#if $nostrNotes.responses[noteId]}
+			{#each $nostrNotes.responses[noteId] as responseId}
+				<Note note={$nostrNotes[responseId]}>
+				</Note>
+			{/each}
 		{/if}
 	</main>
 {:else}

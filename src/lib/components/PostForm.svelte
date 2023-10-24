@@ -1,25 +1,18 @@
 <script lang="ts">
 	import ndk from '$lib/stores/ndk'
-	//import login from '../../routes/login.svelte'
 	import { currentUser } from '$lib/stores/currentUser'
-	//import { userProfileExists, userProfile } from '$lib/stores/userProfile'
 	import { fetchOwnNpub } from '$lib/utils/login'
-	//import { signAndPublishEvent } from '$lib/utils/helpers'
-	//import { testingRelay } from '$lib/stores/relays'
-	import { get } from 'svelte/store'
 	import dayjs from 'dayjs';
 
 	import PostTypeSelector from './PostTypeSelector.svelte'
 	import { nostrNotes } from '$lib/stores/store'
 	import { onMount } from 'svelte'
-	import { validateEvent } from 'nostr-tools'
 	import { createEventDispatcher } from 'svelte'
-	import { NDKEvent, NDKRelay, NDKRelaySet } from '@nostr-dev-kit/ndk'
+	import { NDKEvent } from '@nostr-dev-kit/ndk'
 
 	const dispatch = createEventDispatcher()
 
 	let ownPubkey = 'loading'
-	//let publishEventId
 
 	onMount(async () => {
 		const npub = await fetchOwnNpub()
@@ -63,69 +56,20 @@
 		data.categories = [{ events: ['nostrasia'] }]
 		//console.log('data: ', data)
 
-		// from NDK readme:
-		/*
-		const ndkEvent = new NDKEvent($ndkStore);
-		ndkEvent.kind = 1;
-		ndkEvent.content = "Konnichiwa!\nCan't believe we'll be in 🇯🇵 so soon!";
-		//ndkEvent.publish(); // This will trigger
-		*/
-
 		const event = new NDKEvent($ndk)
+		//event.kind = 121
 		event.kind = 120
 		event.content = JSON.stringify(data)
 		event.created_at = dayjs().unix()
 		event.tags = []
 		event.pubkey = ownPubkey
 
-		/*
-		let event = new NDKEvent(ndk);
-		event = {
-			kind: 120,
-			content: JSON.stringify(data),
-			created_at: Math.floor(Date.now() / 1000),
-			tags: [],
-			pubkey: ownPubkey
-		}
-		*/
-		console.log('event to be sent: ', event)
-
-		//const signedEvent: NDKEvent = await window.nostr.signEvent(event)
-		//console.log('signed event: ', signedEvent);
-		//signedEvent.publish();
-
-		/*
-		signedEvent.publish().then(() => {
-			return json({ signedEvent }, { status: 200 });
-		}).catch((error) => {
-			return json({ error: `Unable to publish note: ${error}` }, { status: 422 });
-		});
-		*/
-
-		/*
-		// relay
-		const relay = new NDKRelay(testingRelay);
-		console.log('testingRelay: ', testingRelay);
-		// relaySet
-		const relaySet = new NDKRelaySet(relay, $ndk);
-		console.log('relaySet: ', relaySet);
-    	let publishedEvent = await event.publish(relaySet);
-		*/
-
-		//	let publishedEvent = event;
-		//    console.log('(not)published event: ', publishedEvent);
 		let publishedEvent = await event.publish()
 		console.log('published event: ', publishedEvent)
 
-		//publishedEventId = publishedEvent.id;
-		//console.log('publishedEventId: ', publishedEventId);
-
-		// dispatch custom event
-		//dispatch('post', publishedEvent.id);
+		//let publishedEventId = publishedEvent.id;
 		dispatch('post', publishedEvent)
 	}
-
-	//$: publishedEventId && dispatch('post', publishedEventId)
 
 	// hack? what hack?
 	//$: publishedEventId && $nostrNotes[publishedEventId] && dispatch('post', publishedEventId)
@@ -144,7 +88,7 @@
 				<div class="flex-1">
 					<h1>NO NOSTR FOR YOU!</h1>
 					<p class="mt-5">
-						You can only use ANANOSTR in read-only mode until you install a Nostr
+						You can only use MIKANOSTR in read-only mode until you install a Nostr
 						extension.
 					</p>
 					<p class="mt-8">

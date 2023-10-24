@@ -2,16 +2,13 @@
 	import ndk from '$lib/stores/ndk'
 	import { NDKEvent } from '@nostr-dev-kit/ndk'
 	import type { NDKUser, NDKUserProfile } from '@nostr-dev-kit/ndk'
-	import { profiles } from '$lib/stores/store'
 	import TimeAgo from 'javascript-time-ago'
-	import en from 'javascript-time-ago/locale/en'
-	import { onMount, tick, createEventDispatcher } from 'svelte'
+	import { onMount, createEventDispatcher } from 'svelte'
 	import Avatar from '$lib/components/Avatar.svelte'
 	import { goto } from '$app/navigation'
 	import dayjs from 'dayjs';
 
 	import { currentUser } from '$lib/stores/currentUser'
-	//import { userProfileExists, userProfile } from '$lib/stores/userProfile';
 	import { fetchOwnNpub } from '$lib/utils/login'
 
 	const dispatch = createEventDispatcher()
@@ -39,21 +36,11 @@
 			console.log('ownPubkey: ', ownPubkey)
 			me = $ndk.getUser({ hexpubkey: ownPubkey })
 			//console.log('me: ', me)
-			//profile = me.fetchProfile()
 		}
 	})
 
 	export let parentId
 	export let replyEvent = new NDKEvent($ndk)
-
-	/*
-	onMount(async () => {
-		ownPubkey = await $nostrPool.fetchOwnProfile()
-		if (!ownPubkey) {
-			alert('No profile found. Please create one first.')
-		}
-	})
-	*/
 
 	async function submit(e) {
 		e.preventDefault()
@@ -67,11 +54,7 @@
 
 		console.log('replyEvent: ', replyEvent)
 
-		// await $.signAndPublishEvent(event)
-		// dispatch('submit', formData);
-
 		let publishedReplyEvent = await replyEvent.publish()
-		//	let publishedReplyEvent = replyEvent;
 		console.log('published reply event yields Set of Relays: ', publishedReplyEvent)
 		//dispatch('post', publishedReplyEvent);
 		goto('/')
