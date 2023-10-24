@@ -8,4 +8,5 @@
 .env.*
 !.env.example
 node_modules
+.svelte-kit
 vite.config.js.timestamp-*

@@ -5,7 +5,7 @@
 	//import { userProfileExists, userProfile } from '$lib/stores/userProfile'
 	import { fetchOwnNpub } from '$lib/utils/login'
 	//import { signAndPublishEvent } from '$lib/utils/helpers'
-	//import { tesingRelay } from '$lib/stores/relays'
+	//import { testingRelay } from '$lib/stores/relays'
 	import { get } from 'svelte/store'
 	import dayjs from 'dayjs';
 
@@ -104,8 +104,8 @@
 
 		/*
 		// relay
-		const relay = new NDKRelay(tesingRelay);
-		console.log('tesingRelay: ', tesingRelay);
+		const relay = new NDKRelay(testingRelay);
+		console.log('testingRelay: ', testingRelay);
 		// relaySet
 		const relaySet = new NDKRelaySet(relay, $ndk);
 		console.log('relaySet: ', relaySet);

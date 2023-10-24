@@ -8,7 +8,7 @@
 
 	import '../app.css'
 	
-	export const prerender = true
+	export const prerender = false
 
 	let displayRelayInfo = false
 

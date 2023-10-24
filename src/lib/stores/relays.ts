@@ -27,5 +27,5 @@ export const originalRelays = [
 export const profileRelay = ['wss://purplepag.es']
 
 ///// testing relays
-export const tesingRelays = ['wss://purplepag.es', 'wss://feedstr.nostr1.com']
-export const tesingRelay = 'wss://feedstr.nostr1.com'
+export const testingRelays = ['wss://purplepag.es', 'wss://feedstr.nostr1.com']
+export const testingRelay = 'wss://feedstr.nostr1.com'
