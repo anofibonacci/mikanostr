@@ -24,14 +24,14 @@
 			<span class="text-5xl">🚗</span>
 		{:else if content.type === 'lodging'}
 			<span class="text-5xl">🏡</span>
-		{:else if content.type === 'surfing'}
-			<span class="text-5xl">🏄‍♂️</span>
-		{:else if content.type === 'climbing'}
-			<span class="text-5xl">🧗‍♂️</span>
+		{:else if content.type === 'karaoke'}
+			<span class="text-5xl">🎤</span>
+		{:else if content.type === 'sushi'}
+			<span class="text-5xl">🍣</span>
 		{:else if content.type === 'coffee'}
 			<span class="text-5xl">☕️</span>
 		{:else if content.type === 'psa'}
-			<span class="text-5xl">📢</span>
+			<span class="text-5xl">ℹ️</span>
 		{:else}
 			{content.type}
 		{/if}

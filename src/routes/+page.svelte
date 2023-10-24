@@ -24,7 +24,7 @@
 
 	let events: NDKEvent[] = [];
 	function fetchEventsFromSub() {
-		const eventsSub = $ndk.subscribe({ kinds: [120] }, { closeOnEose: false });
+		const eventsSub = $ndk.subscribe({ kinds: [121] }, { closeOnEose: false });
 
 		eventsSub.on('event', (event) => {
 			events.push(event);
@@ -132,7 +132,6 @@
 	}
 
 	/*
-	After await eventsPromise below,
 	I'd like to filter by content > categories > events > nostrasia 
 	// "{"type":"climbing","title":"any climbers?","categories":[{"events":["nostrica"]}]}"
 	*/
@@ -168,5 +167,5 @@
 		{/each}
 	</div>
 {:else}
-	<div>No posts yet...</div>
+	<div>No posts coming up? Try refreshing :|</div>
 {/if}

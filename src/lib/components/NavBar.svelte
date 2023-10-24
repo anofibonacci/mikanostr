@@ -38,8 +38,7 @@
 		</button>
 	</a>
 	<h1 class="text-md text-purple-800 mt-3" style="font-family: 'Press Start 2P';">
-		NOSTRASIA
-		<span class="hidden md:inline-block">2023</span>
+		<a href="https://nostr.world" target="_blank">NOSTRASIA 2023</a>
 	</h1>
 </div>
 
@@ -54,8 +53,13 @@
 
 				<p class="mb-4">
 					Ananostr was built by Pablo as a Craigslist alternative, specifically for
-					matching nostriches attending <b>NOSTRICA 2023</b>. Mikanostr extends this for
-					<b>NOSTRASIA 2023</b>.
+					matching nostriches attending <b>NOSTRICA 2023</b>.
+				</p>
+
+				<p class="mb-4">Mikanostr is a learning project that extends Ananostr for 
+					<b>NOSTRASIA 2023</b>. Although posting works and you can reply to topics, 
+					replies do not (yet) display. <em>We're working on it.</em> Please consider 
+					Mikanostr as very much still in BETA!
 				</p>
 
 				<p class="mb-4">

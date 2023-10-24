@@ -57,8 +57,8 @@
 		//console.log('data: ', data)
 
 		const event = new NDKEvent($ndk)
-		//event.kind = 121
-		event.kind = 120
+		event.kind = 121
+		//event.kind = 120
 		event.content = JSON.stringify(data)
 		event.created_at = dayjs().unix()
 		event.tags = []

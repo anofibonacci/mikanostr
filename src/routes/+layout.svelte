@@ -59,10 +59,10 @@
 	<footer class="bottom-0 p-5 bg-black font-mono text-white w-full text-center mt-12">
 		<div class="flex justify-center flex-row">
 			<div class="text-sm">
-				🍊 MIKANOSTR (a ripoff of AnaNostr by
-				<a class="text-purple-50 hover:text-purple-400" href="https://pablof7z.com">
-					@pablof7z
-				</a>)
+				🍊 MIKANOSTR is a ripoff of AnaNostr (by
+				<a class="text-purple-50 hover:text-purple-400" href="https://pablof7z.com">@pablof7z</a>) 
+				and updated by <a class="text-purple-50 hover:text-purple-400" href="https://sophwrk.io/" target="_blank">sophwrk</a> 
+				(and her dad) at <a class="text-purple-50 hover:text-purple-400" href="https://nostrgardn.com" target="_blank">nostrgardn</a>
 			</div>
 		</div>
 	</footer>
