@@ -53,21 +53,26 @@
 
 				<p class="mb-4">
 					Ananostr was built by Pablo as a Craigslist alternative, specifically for
-					matching nostriches attending <b>NOSTRICA 2023</b>.
+					matching nostriches attending 
+					<b><a class="text-purple-50 hover:text-purple-400" 
+						href="https://nostrica.com/" target="_blank">NOSTRICA 2023</a></b>.
 				</p>
 
-				<p class="mb-4">Mikanostr is a learning project that extends Ananostr for 
-					<b>NOSTRASIA 2023</b>. Although posting works and you can reply to topics, 
-					replies do not (yet) display. <em>We're working on it.</em> Please consider 
-					Mikanostr as very much still in BETA!
+				<p class="mb-4">Mikanostr (beta) is a learning project that extends Ananostr for 
+					<b><a class="text-purple-50 hover:text-purple-400" 
+					href="https://nostr.world/" target="_blank">NOSTRASIA 2023</a></b>. 
+					Although posting works and you can reply to topics just fine, 
+					replies do not (yet) display on the site. (They show up in other clients, fwiw.) 
+					<br /><em>We're working on it 😎</em>
 				</p>
 
 				<p class="mb-4">
-					If you're attending 🇯🇵 (or 🇭🇰) and want to share a hotel room, a ride from/to
-					the hotel, or anything else, post it here and find another nostrich.
+					If you're attending <span class="text-3xl">🇯🇵</span> (or <span class="text-3xl">🇭🇰</span>) 
+					and want to share a hotel room, a ride from/to the hotel, or anything else, 
+					post it here and find another nostrich.
 				</p>
 
-				<p class="font-bold text-xl">🧡💜 Pura Vida! 🤙🏼</p>
+				<p class="font-bold text-xl">🧡 💜 よろしくね 🤙🏼</p>
 			</div>
 		</div>
 		<button

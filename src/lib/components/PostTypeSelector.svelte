@@ -111,7 +111,7 @@
 		<span class="text-sm text-gray-50"> This will appear in the main page. </span>
 	</div>
 
-	{#if ['surfing', 'coffee', 'climbing'].includes(visibleChoice)}
+	{#if ['sushi', 'coffee', 'karaoke'].includes(visibleChoice)}
 		<h3 class="text-lg font-semibold">Want to share when you'll be available?</h3>
 		<div class="flex flex-col md:flex-row">
 			<div class="my-3 flex-1 md:mr-1">

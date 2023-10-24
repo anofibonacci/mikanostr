@@ -18,7 +18,6 @@
 	}
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
 	class="fixed bottom-0 left-0 text-4xl opacity-90 m-2 hidden md:block cursor-pointer hover:opacity-100"
 	on:click={() => {
@@ -40,9 +39,9 @@
 					{#await getRelayInfo(relayUrl)}
 						<span class="text-gray-400"> (loading...)</span>
 					{:then info}
-						<span class="text-gray-400">
+						<!--span class="text-gray-400">
 							(status: {info})
-						</span>
+						</span-->
 					{:catch error}
 						<span class="text-red-400"> (error)</span>
 					{/await}
@@ -53,7 +52,7 @@
 {/if}
 
 <div class="flex flex-col min-h-screen items-center">
-	<div class="flex flex-col items-center max-w-2xl w-full flex-grow">
+	<div class="flex flex-col items-center max-w-4xl w-full flex-grow">
 		<slot />
 	</div>
 	<footer class="bottom-0 p-5 bg-black font-mono text-white w-full text-center mt-12">
@@ -61,7 +60,7 @@
 			<div class="text-sm">
 				🍊 MIKANOSTR is a ripoff of AnaNostr (by
 				<a class="text-purple-50 hover:text-purple-400" href="https://pablof7z.com">@pablof7z</a>) 
-				and updated by <a class="text-purple-50 hover:text-purple-400" href="https://sophwrk.io/" target="_blank">sophwrk</a> 
+				updated by <a class="text-purple-50 hover:text-purple-400" href="https://sophwrk.io/" target="_blank">sophwrk</a> 
 				(and her dad) at <a class="text-purple-50 hover:text-purple-400" href="https://nostrgardn.com" target="_blank">nostrgardn</a>
 			</div>
 		</div>

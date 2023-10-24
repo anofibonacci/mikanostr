@@ -56,7 +56,7 @@
 
 		let publishedReplyEvent = await replyEvent.publish()
 		console.log('published reply event yields Set of Relays: ', publishedReplyEvent)
-		//dispatch('post', publishedReplyEvent);
+		dispatch('post', publishedReplyEvent);
 		goto('/')
 	}
 </script>
